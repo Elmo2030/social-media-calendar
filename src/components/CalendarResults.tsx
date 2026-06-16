@@ -21,7 +21,7 @@ const StatCard = memo(({ label, value }: StatCardProps) => (
 ));
 StatCard.displayName = 'StatCard';
 
-const CalendarResults = ({ brand, platformCalendars, copied, building, error, onDownload, onCopy, onReset, onDismissError }: CalendarResultsProps) => {
+const CalendarResults = ({ brand, platformCalendars, copied, downloaded, building, error, onDownload, onCopy, onReset, onDismissError }: CalendarResultsProps) => {
   const [expanded, setExpanded] = useState<Record<PlatformName, boolean>>({} as Record<PlatformName, boolean>);
   const handleToggle = useCallback((platform: PlatformName) => {
     setExpanded(prev => ({ ...prev, [platform]: !prev[platform] }));
@@ -61,8 +61,8 @@ const CalendarResults = ({ brand, platformCalendars, copied, building, error, on
             </button>
             <button onClick={onDownload} disabled={building} aria-label="Download calendar as HTML file"
               className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-medium transition-colors">
-              {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
-              {building?'Building…':'Download'}
+              {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:downloaded?<Check size={16} aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
+              {building?'Building…':downloaded?'Downloaded!':'Download'}
             </button>
           </div>
         </div>
@@ -93,8 +93,8 @@ const CalendarResults = ({ brand, platformCalendars, copied, building, error, on
         </button>
         <button onClick={onDownload} disabled={building} aria-label="Download premium calendar as HTML"
           className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 flex-1 justify-center font-medium transition-colors">
-          {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
-          {building?'Building HTML…':'Download Premium Calendar'}
+          {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:downloaded?<Check size={16} aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
+          {building?'Building HTML…':downloaded?'Downloaded!':'Download Premium Calendar'}
         </button>
       </div>
     </div>

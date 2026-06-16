@@ -6,15 +6,16 @@ import type { Brand, PlatformCalendars } from '../types/index.js';
 type HtmlExportModule = { buildHTMLDocument: (b: Brand, c: PlatformCalendars) => string };
 
 interface UseExportReturn {
-  copied: boolean; building: boolean; error: string | null;
+  copied: boolean; downloaded: boolean; building: boolean; error: string | null;
   handleDownload: () => Promise<void>;
   handleCopy:     () => Promise<void>;
   dismissError:   () => void;
 }
 
 export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, showCalendar: boolean): UseExportReturn => {
-  const [copied,   setCopied]   = useState(false);
-  const [building, setBuilding] = useState(false);
+  const [copied,     setCopied]     = useState(false);
+  const [downloaded, setDownloaded] = useState(false);
+  const [building,   setBuilding]   = useState(false);
   const [error,    setError]    = useState<string | null>(null);
   const dismissError = useCallback(() => setError(null), []);
   const moduleRef = useRef<HtmlExportModule | null>(null);
@@ -40,6 +41,8 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
       });
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      setDownloaded(true);
+      setTimeout(() => setDownloaded(false), 2000);
     } catch { setError('Download failed — try Copy HTML instead.'); }
     finally  { setBuilding(false); }
   }, [buildDoc, brand.name]);
@@ -58,5 +61,5 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
     if (showCalendar && Object.keys(platformCalendars).length) getModule();
   }, [showCalendar, platformCalendars, getModule]);
 
-  return { copied, building, error, handleDownload, handleCopy, dismissError };
+  return { copied, downloaded, building, error, handleDownload, handleCopy, dismissError };
 };

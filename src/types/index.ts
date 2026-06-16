@@ -126,6 +126,7 @@ export interface CalendarResultsProps {
   brand:            Brand;
   platformCalendars:PlatformCalendars;
   copied:           boolean;
+  downloaded:       boolean;
   building:         boolean;
   error:            string | null;
   onDownload:       () => void;
