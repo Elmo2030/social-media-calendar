@@ -1,25 +1,38 @@
 // src/hooks/useExport.js
-// PERF-2: precise deps — only brand fields used in HTML, not the whole object
-import { useState, useMemo, useCallback } from 'react';
-import { buildHTMLDocument } from '../utils/htmlExport.js';
+// LAZY-FIX: htmlExport imported dynamically — NOT in the main bundle
+// Only downloaded when the user actually generates a calendar (Step 3)
+import { useState, useMemo, useCallback, useRef } from 'react';
 import { sanitize } from '../utils/sanitize.js';
 
 export const useExport = (brand, platformCalendars, showCalendar) => {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied]   = useState(false);
+  const [building, setBuilding] = useState(false);
 
-  // PERF-2: destructure exact fields used by buildHTMLDocument
-  const { name, industry, country, businessModel, goals, tone, audience, products, differentiation, platforms } = brand;
+  // Cache the loaded module — only fetched once per session
+  const exportModuleRef = useRef(null);
 
-  const htmlDocument = useMemo(() => {
-    if (!showCalendar || !Object.keys(platformCalendars).length) return '';
+  const getExportModule = useCallback(async () => {
+    if (!exportModuleRef.current) {
+      // LAZY-FIX: dynamic import — htmlExport.js only hits the network here
+      exportModuleRef.current = await import('../utils/htmlExport.js');
+    }
+    return exportModuleRef.current;
+  }, []);
+
+  const { name, industry, country, businessModel, goals, tone, audience, products, platforms } = brand;
+
+  // htmlDocument is now built on-demand, not eagerly
+  const buildDoc = useCallback(async () => {
+    const { buildHTMLDocument } = await getExportModule();
     return buildHTMLDocument(brand, platformCalendars);
-  // ✅ primitive deps — changing 'differentiation' no longer re-triggers if htmlExport doesn't use it
-  }, [showCalendar, platformCalendars, name, industry, country, businessModel, goals, tone, audience, products, platforms]);
+  }, [brand, platformCalendars, getExportModule]);
 
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
     try {
+      setBuilding(true);
+      const html     = await buildDoc();
       const filename = `${sanitize(name).replace(/\s+/g, '_') || 'calendar'}_Content_Calendar.html`;
-      const blob = new Blob([htmlDocument], { type: 'text/html;charset=utf-8' });
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
       const url  = URL.createObjectURL(blob);
       const a    = Object.assign(document.createElement('a'), { href: url, download: filename });
       document.body.appendChild(a);
@@ -28,18 +41,32 @@ export const useExport = (brand, platformCalendars, showCalendar) => {
       URL.revokeObjectURL(url);
     } catch {
       alert('Download failed — try Copy HTML instead.');
+    } finally {
+      setBuilding(false);
     }
-  }, [htmlDocument, name]);
+  }, [buildDoc, name]);
 
   const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(htmlDocument);
+      setBuilding(true);
+      const html = await buildDoc();
+      await navigator.clipboard.writeText(html);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       alert('Clipboard unavailable in this browser.');
+    } finally {
+      setBuilding(false);
     }
-  }, [htmlDocument]);
+  }, [buildDoc]);
 
-  return { copied, handleDownload, handleCopy };
+  // Preload htmlExport.js when calendar is ready — before user clicks download
+  // User sees Step 3 → module fetches in background → click is instant
+  useMemo(() => {
+    if (showCalendar && Object.keys(platformCalendars).length) {
+      getExportModule(); // fire-and-forget preload
+    }
+  }, [showCalendar, platformCalendars, getExportModule]);
+
+  return { copied, building, handleDownload, handleCopy };
 };

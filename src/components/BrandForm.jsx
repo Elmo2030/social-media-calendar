@@ -1,9 +1,9 @@
-// src/components/BrandForm.jsx — Step 1: Brand information form
+// src/components/BrandForm.jsx
 import { ChevronRight } from 'lucide-react';
 import { FormField, FormSelect, TogglePill } from './FormField.jsx';
 import { INDUSTRIES, TONES, GOAL_OPTIONS } from '../data/constants.js';
 
-export const BrandForm = ({ brand, updateBrand, toggleGoal, onNext }) => {
+export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNextHover }) {
   const canProceed = brand.name.trim() && brand.industry;
   return (
     <div className="bg-slate-800/80 rounded-xl p-5 backdrop-blur">
@@ -44,6 +44,7 @@ export const BrandForm = ({ brand, updateBrand, toggleGoal, onNext }) => {
       <div className="mt-4 flex justify-end">
         <button
           onClick={onNext}
+          onMouseEnter={onNextHover}   
           disabled={!canProceed}
           className="bg-purple-500 hover:bg-purple-600 disabled:bg-slate-600 disabled:cursor-not-allowed text-white px-5 py-2 rounded-lg text-sm font-medium flex items-center gap-1 transition-colors"
         >
@@ -52,4 +53,4 @@ export const BrandForm = ({ brand, updateBrand, toggleGoal, onNext }) => {
       </div>
     </div>
   );
-};
+}

@@ -1,8 +1,6 @@
 // src/components/CalendarResults.jsx
-// PERF-4: stable toggle via useCallback — no inline arrow in map
-// PERF-4: passes platform string to onToggle, not closure
 import { useState, useCallback, memo } from 'react';
-import { Download, Copy, Check, FileText, ShieldCheck, Zap, Layers } from 'lucide-react';
+import { Download, Copy, Check, FileText, ShieldCheck, Zap, Layers, Loader2 } from 'lucide-react';
 import { PlatformPreviewCard } from './PlatformPreviewCard.jsx';
 import { CONTENT_PILLARS } from '../data/constants.js';
 
@@ -12,7 +10,6 @@ const FIX_BADGES = [
   { Icon: Layers,      label: 'Code Split',     color: '#8B5CF6' },
 ];
 
-// PERF-1: memo on StatCard — never re-renders unless value changes
 const StatCard = memo(({ label, value }) => (
   <div className="bg-slate-700/50 p-3 rounded-lg text-center">
     <div className="text-purple-300 text-xs">{label}</div>
@@ -21,13 +18,8 @@ const StatCard = memo(({ label, value }) => (
 ));
 StatCard.displayName = 'StatCard';
 
-const CalendarResults = ({
-  brand, platformCalendars, copied, onDownload, onCopy, onReset,
-}) => {
+const CalendarResults = ({ brand, platformCalendars, copied, building, onDownload, onCopy, onReset }) => {
   const [expanded, setExpanded] = useState({});
-
-  // PERF-4: useCallback — stable reference, receives platform string
-  // PlatformPreviewCard.memo stays effective
   const handleToggle = useCallback((platform) => {
     setExpanded(prev => ({ ...prev, [platform]: !prev[platform] }));
   }, []);
@@ -50,14 +42,15 @@ const CalendarResults = ({
             <p className="text-purple-300 text-sm">Content Calendar Ready</p>
           </div>
           <div className="flex gap-2">
-            <button onClick={onCopy}
-              className="bg-slate-600 hover:bg-slate-500 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-1 transition-colors">
-              {copied ? <Check size={16} /> : <Copy size={16} />}
-              {copied ? 'Copied!' : 'Copy HTML'}
+            <button onClick={onCopy} disabled={building}
+              className="bg-slate-600 hover:bg-slate-500 disabled:opacity-60 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-1 transition-colors">
+              {building ? <Loader2 size={16} className="animate-spin"/> : copied ? <Check size={16}/> : <Copy size={16}/>}
+              {building ? 'Building…' : copied ? 'Copied!' : 'Copy HTML'}
             </button>
-            <button onClick={onDownload}
-              className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-medium transition-colors">
-              <Download size={16} /> Download
+            <button onClick={onDownload} disabled={building}
+              className="bg-green-500 hover:bg-green-600 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-medium transition-colors">
+              {building ? <Loader2 size={16} className="animate-spin"/> : <Download size={16}/>}
+              {building ? 'Building…' : 'Download'}
             </button>
           </div>
         </div>
@@ -80,7 +73,7 @@ const CalendarResults = ({
           platform={platform}
           calendar={platformCalendars[platform]}
           expanded={!!expanded[platform]}
-          onToggle={handleToggle}   // ✅ stable ref — memo on PlatformPreviewCard works
+          onToggle={handleToggle}
         />
       ))}
 
@@ -89,9 +82,10 @@ const CalendarResults = ({
           className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm transition-colors">
           New Calendar
         </button>
-        <button onClick={onDownload}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 flex-1 justify-center font-medium transition-colors">
-          <Download size={16} /> Download Premium Calendar
+        <button onClick={onDownload} disabled={building}
+          className="bg-green-500 hover:bg-green-600 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 flex-1 justify-center font-medium transition-colors">
+          {building ? <Loader2 size={16} className="animate-spin"/> : <Download size={16}/>}
+          {building ? 'Building HTML…' : 'Download Premium Calendar'}
         </button>
       </div>
     </div>
