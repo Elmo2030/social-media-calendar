@@ -15,7 +15,7 @@ export const FormField = memo(({ label, value, onChange, placeholder, type = 'te
       <input id={id} type={type} value={value} onChange={e => onChange(e.target.value)} onBlur={onBlur} placeholder={placeholder}
         aria-invalid={!!error} aria-describedby={error ? `${id}-err` : undefined}
         className={`w-full bg-surface-raised text-white rounded-lg p-2.5 text-sm border outline-none ${borderClass(error)}`}/>
-      {error && <p id={`${id}-err`} role="alert" className="mt-1 text-feedback-error text-xs">{error}</p>}
+      {error && <p id={`${id}-err`} role="alert" className="mt-1 text-feedback-error text-xs animate-fade-in">{error}</p>}
     </div>
   );
 });
@@ -35,7 +35,7 @@ export const FormSelect = memo(({ label, value, onChange, options, error, onBlur
           return <option key={val} value={val}>{label}</option>;
         })}
       </select>
-      {error && <p id={`${id}-err`} role="alert" className="mt-1 text-feedback-error text-xs">{error}</p>}
+      {error && <p id={`${id}-err`} role="alert" className="mt-1 text-feedback-error text-xs animate-fade-in">{error}</p>}
     </div>
   );
 });

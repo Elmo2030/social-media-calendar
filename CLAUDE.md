@@ -126,11 +126,11 @@ Each criterion scored 1-10, with 8 sub-points per criterion.
 | 📭 Empty & Error States | ✅ 8 | 8 | DONE |
 | 📝 Form UX & Validation Messages | ✅ 8 | 8 | DONE |
 | ✨ Loading & Interactive Feedback | ✅ 9 | 9 | DONE |
-| 🌊 Micro-animations & Transitions | 3 | 8 | #1 (next) |
-| 🎯 Focus & Keyboard States | 2 | 8 | #7 |
+| 🌊 Micro-animations & Transitions | ✅ 8 | 8 | DONE |
+| 🎯 Focus & Keyboard States | 2 | 8 | #1 (next) |
 | 📖 Typography & Visual Hierarchy | 5 | 8 | #8 |
 
-**NEXT: Micro-animations & Transitions** — Loading/feedback shipped (useExport downloaded state → transient "Downloaded!" + check on both download buttons, parity with copy). Form validation shipped (FormField/FormSelect take error+onBlur → inline feedback-error msg + aria-invalid/aria-describedby; BrandForm touched-state, enabled guard surfaces messages on Next click). Empty/Error shipped (useExport returns error+dismissError → inline feedback-error banner in CalendarResults, replaced alert(); PlatformSelector empty-state hint at 0 selected). Responsive shipped (platform grid 2→3 cols at sm:, tables already scroll, form already md:grid-cols-2). Design Tokens shipped (CSS-var channels in index.css → Tailwind semantic colors). Token names: brand{,-deep,-strong,-light,-soft,-softer}, accent, surface{base,card,raised,hover,muted}, content{,-muted,-faint}, feedback{success,warning,error,info}.
+**NEXT: Focus & Keyboard States** — Micro-animations shipped (fade-in/fade-in-up keyframes in tailwind.config, entrance on step containers + feedback, global button:active scale, platform hover lift, prefers-reduced-motion guard in index.css). Loading/feedback shipped (useExport downloaded state → transient "Downloaded!" + check on both download buttons, parity with copy). Form validation shipped (FormField/FormSelect take error+onBlur → inline feedback-error msg + aria-invalid/aria-describedby; BrandForm touched-state, enabled guard surfaces messages on Next click). Empty/Error shipped (useExport returns error+dismissError → inline feedback-error banner in CalendarResults, replaced alert(); PlatformSelector empty-state hint at 0 selected). Responsive shipped (platform grid 2→3 cols at sm:, tables already scroll, form already md:grid-cols-2). Design Tokens shipped (CSS-var channels in index.css → Tailwind semantic colors). Token names: brand{,-deep,-strong,-light,-soft,-softer}, accent, surface{base,card,raised,hover,muted}, content{,-muted,-faint}, feedback{success,warning,error,info}.
 
 ### ⏳ PENDING — قابلية التوسع والصيانة (Scalability)
 Not started yet. Original score: 3/10.

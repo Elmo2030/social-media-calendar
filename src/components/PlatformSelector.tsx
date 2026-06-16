@@ -5,7 +5,7 @@ import { ALL_PLATFORMS, PLATFORM_DATA } from '../data/constants.js';
 
 export default function PlatformSelector({ selected, onToggle, onBack, onGenerate, onGenerateHover }: PlatformSelectorProps) {
   return (
-    <div className="bg-surface-card/80 rounded-xl p-5 backdrop-blur">
+    <div className="bg-surface-card/80 rounded-xl p-5 backdrop-blur animate-fade-in-up">
       <h2 className="text-lg font-bold text-white mb-1">📣 Select Platforms</h2>
       <p className="text-content-muted text-xs mb-4" aria-live="polite">{selected.length} of {ALL_PLATFORMS.length} selected</p>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3" role="group" aria-label="Platform selection">
@@ -15,7 +15,7 @@ export default function PlatformSelector({ selected, onToggle, onBack, onGenerat
           return (
             <button key={p} onClick={()=>onToggle(p as PlatformName)}
               aria-pressed={active} aria-label={`${active?'Remove':'Add'} ${p}`}
-              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all ${active?'text-white':'border-surface-hover bg-surface-raised/50 text-content hover:border-surface-muted'}`}
+              className={`p-3 rounded-lg border-2 text-sm font-medium transition-all hover:scale-[1.02] ${active?'text-white':'border-surface-hover bg-surface-raised/50 text-content hover:border-surface-muted'}`}
               style={active?{borderColor:color,background:color+'33'}:{}}>
               {p}
             </button>
@@ -23,7 +23,7 @@ export default function PlatformSelector({ selected, onToggle, onBack, onGenerat
         })}
       </div>
       {selected.length === 0 && (
-        <p className="mt-3 text-content-faint text-xs text-center" role="status">
+        <p className="mt-3 text-content-faint text-xs text-center animate-fade-in" role="status">
           👆 Pick at least one platform to generate your calendar.
         </p>
       )}

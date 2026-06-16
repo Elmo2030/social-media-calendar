@@ -19,7 +19,7 @@ export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNe
   }, [canProceed, onNext]);
 
   return (
-    <div className="bg-surface-card/80 rounded-xl p-5 backdrop-blur" role="form" aria-label="Brand information">
+    <div className="bg-surface-card/80 rounded-xl p-5 backdrop-blur animate-fade-in-up" role="form" aria-label="Brand information">
       <h2 className="text-lg font-bold text-white mb-4">🏢 Brand Information</h2>
       <div className="grid md:grid-cols-2 gap-3">
         <FormField label="Brand Name *" value={brand.name} onChange={v => updateBrand('name', v)} placeholder="Enter brand name"

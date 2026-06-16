@@ -28,7 +28,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
   }, []);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 animate-fade-in-up">
       <div className="flex gap-2 flex-wrap justify-center" role="status" aria-label="Applied security and performance fixes">
         {FIX_BADGES.map(({ Icon, label, color }) => (
           <div key={label} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold"
@@ -39,7 +39,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
       </div>
 
       {error && (
-        <div role="alert" className="flex items-start gap-2 bg-feedback-error/10 border border-feedback-error/40 text-feedback-error rounded-lg p-3 text-sm">
+        <div role="alert" className="flex items-start gap-2 bg-feedback-error/10 border border-feedback-error/40 text-feedback-error rounded-lg p-3 text-sm animate-fade-in">
           <AlertTriangle size={18} className="shrink-0 mt-0.5" aria-hidden="true"/>
           <span className="flex-1">{error}</span>
           <button onClick={onDismissError} aria-label="Dismiss error"
