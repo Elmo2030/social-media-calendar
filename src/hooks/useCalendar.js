@@ -1,15 +1,16 @@
 // src/hooks/useCalendar.js
-// PERF-2: precise dependency array — primitives only, not the full brand object
-import { useMemo } from 'react';
+// DEFER-FIX 3/3: useTransition inside the hook for internal heavy recomputation
+// When platforms/tone/industry changes AFTER calendar is shown, wrap recompute
+import { useMemo, useTransition, useState, useEffect } from 'react';
 import { PLATFORM_DATA, CONTENT_PILLARS, DAYS } from '../data/constants.js';
 
 const TOPICS = {
-  Education:      (ind)  => [`How to choose the right ${ind} solution`,`Common ${ind} mistakes to avoid`,`Beginner guide to ${ind}`,`Key factors before investing in ${ind}`,`${ind} trends shaping 2025`],
-  Authority:      (ind)  => [`Expert perspective on the future of ${ind}`,`What 10 years in ${ind} taught us`,`${ind} industry analysis`,`Overcoming top ${ind} challenges`,`Our proven ${ind} excellence approach`],
-  Product:        (prod) => [`How ${prod} solves your biggest challenges`,`Feature spotlight: what makes ${prod} unique`,`Real client results with ${prod}`,`Getting started with ${prod}`,`Why leaders choose ${prod}`],
-  Engagement:     (ind)  => [`What's your biggest challenge in ${ind}?`,`This or that: ${ind} edition`,`Share your ${ind} experience`,`Poll: top priorities in ${ind}`,`Caption this ${ind} moment`],
-  'Social Proof': ()     => [`Client success story: remarkable results`,`Before & after: real transformation`,`What clients say about us`,`Case study: exceptional delivery`,`Celebrating client milestones`],
-  'Behind Scenes':()     => [`A day in the life at our office`,`Meet the team behind the brand`,`How we prepare for projects`,`Our process from start to finish`,`Team culture: what drives us`],
+  Education:       ind  => [`How to choose the right ${ind} solution`,`Common ${ind} mistakes to avoid`,`Beginner guide to ${ind}`,`Key factors before investing in ${ind}`,`${ind} trends shaping 2025`],
+  Authority:       ind  => [`Expert perspective on the future of ${ind}`,`What 10 years in ${ind} taught us`,`${ind} industry analysis`,`Overcoming top ${ind} challenges`,`Our proven ${ind} approach`],
+  Product:         prod => [`How ${prod} solves your biggest challenges`,`Feature spotlight: what makes ${prod} unique`,`Real client results with ${prod}`,`Getting started with ${prod}`,`Why leaders choose ${prod}`],
+  Engagement:      ind  => [`What's your biggest challenge in ${ind}?`,`This or that: ${ind} edition`,`Share your ${ind} experience`,`Poll: top priorities in ${ind}`,`Caption this ${ind} moment`],
+  'Social Proof':  ()   => [`Client success story: remarkable results`,`Before & after: real transformation`,`What clients say about us`,`Case study: exceptional delivery`,`Celebrating client milestones`],
+  'Behind Scenes': ()   => [`A day in the life at our office`,`Meet the team behind the brand`,`How we prepare for projects`,`Our process from start to finish`,`Team culture: what drives us`],
 };
 const CTAS = {
   'Brand Awareness': [`Follow for more insights`,`Share with someone who needs this`,`Save this for later`,`Turn on notifications`],
@@ -52,15 +53,24 @@ export const buildCalendar = (platform, { industry, products, goals, tone }) => 
 };
 
 export const useCalendar = (brand, showCalendar) => {
-  // PERF-2: destructure to primitive deps — avoids rebuilding on unrelated brand changes
   const { platforms, industry, products, goals, tone } = brand;
 
-  const platformCalendars = useMemo(() => {
-    if (!showCalendar || !platforms.length) return {};
-    return Object.fromEntries(
-      platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone })])
-    );
-  }, [showCalendar, platforms, industry, products, goals, tone]); // ✅ primitives only
+  // DEFER-FIX 3/3: useTransition for recomputation after initial render
+  // isComputing = true while React processes the heavy calendar update
+  const [isComputing, startCompute] = useTransition();
+  const [calendars, setCalendars]   = useState({});
 
-  return { platformCalendars };
+  useEffect(() => {
+    if (!showCalendar || !platforms.length) { setCalendars({}); return; }
+    // Wrap in startTransition — calendar recompute is non-urgent
+    startCompute(() => {
+      setCalendars(
+        Object.fromEntries(
+          platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone })])
+        )
+      );
+    });
+  }, [showCalendar, platforms, industry, products, goals, tone]);
+
+  return { platformCalendars: calendars, isComputing };
 };
