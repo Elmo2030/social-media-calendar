@@ -38,6 +38,14 @@
 /* Press feedback for every button — one rule beats per-button active: classes */
 button:not(:disabled):active { transform: scale(0.97); }
 
+/* Keyboard focus: visible ring on every interactive element. Components use
+   outline-none + a focus border for mouse; this restores a ring for keyboard
+   users only (:focus-visible), so mouse clicks stay ring-free. */
+:focus-visible {
+  outline: 2px solid rgb(var(--brand-light));
+  outline-offset: 2px;
+}
+
 /* Accessibility: honor reduced-motion — kill animations + transitions */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
