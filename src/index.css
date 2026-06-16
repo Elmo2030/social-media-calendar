@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Design tokens ────────────────────────────────────────────────
+   Single source of truth for color. Values are space-separated RGB
+   channels so Tailwind can apply opacity modifiers via <alpha-value>.
+   To re-theme (e.g. a light mode) override these vars in a scope. */
+:root {
+  /* brand */
+  --brand-deep:   76 29 149;   /* purple-900 — gradient backdrop */
+  --brand-strong: 124 58 237;  /* purple-600 — primary hover */
+  --brand:        168 85 247;  /* purple-500 — primary */
+  --brand-light:  192 132 252; /* purple-400 — focus ring */
+  --brand-soft:   216 180 254; /* purple-300 */
+  --brand-softer: 233 213 255; /* purple-200 — muted brand text */
+  --accent:       236 72 153;  /* pink-500 */
+
+  /* surfaces (dark) */
+  --surface-base:   15 23 42;    /* slate-900 */
+  --surface-card:   30 41 59;    /* slate-800 */
+  --surface-raised: 51 65 85;    /* slate-700 */
+  --surface-hover:  71 85 105;   /* slate-600 */
+  --surface-muted:  100 116 139; /* slate-500 */
+
+  /* content / text on dark */
+  --content:        203 213 225; /* slate-300 */
+  --content-muted:  148 163 184; /* slate-400 */
+  --content-faint:  100 116 139; /* slate-500 */
+
+  /* feedback (consumed by Empty/Error/Validation states — priorities #3/#4) */
+  --feedback-success: 16 185 129;
+  --feedback-warning: 245 158 11;
+  --feedback-error:   239 68 68;
+  --feedback-info:    59 130 246;
+}

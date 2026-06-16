@@ -121,8 +121,8 @@ Each criterion scored 1-10, with 8 sub-points per criterion.
 ### 🔄 IN PROGRESS — جودة التصميم وتجربة المستخدم (UI/UX)
 | Sub-point | Current | Target | Priority |
 |-----------|---------|--------|----------|
-| 🎨 Design Tokens & Color System | 3 | 9 | #1 |
-| 📱 Responsive Design | 4 | 9 | #2 |
+| 🎨 Design Tokens & Color System | ✅ 9 | 9 | DONE |
+| 📱 Responsive Design | 4 | 9 | #1 (next) |
 | 📭 Empty & Error States | 1 | 8 | #3 |
 | 📝 Form UX & Validation Messages | 3 | 8 | #4 |
 | ✨ Loading & Interactive Feedback | 7 | 9 | #5 |
@@ -130,7 +130,7 @@ Each criterion scored 1-10, with 8 sub-points per criterion.
 | 🎯 Focus & Keyboard States | 2 | 8 | #7 |
 | 📖 Typography & Visual Hierarchy | 5 | 8 | #8 |
 
-**START HERE: Design Tokens** — hardcoded colors must become CSS variables + tailwind.config.ts tokens
+**NEXT: Responsive Design** — Design Tokens shipped (CSS-var channels in index.css → Tailwind semantic colors). Token names: brand{,-deep,-strong,-light,-soft,-softer}, accent, surface{base,card,raised,hover,muted}, content{,-muted,-faint}, feedback{success,warning,error,info}.
 
 ### ⏳ PENDING — قابلية التوسع والصيانة (Scalability)
 Not started yet. Original score: 3/10.

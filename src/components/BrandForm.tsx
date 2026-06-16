@@ -7,7 +7,7 @@ import { INDUSTRIES, TONES, GOAL_OPTIONS } from '../data/constants.js';
 export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNextHover }: BrandFormProps) {
   const canProceed = brand.name.trim().length > 0 && brand.industry.length > 0;
   return (
-    <div className="bg-slate-800/80 rounded-xl p-5 backdrop-blur" role="form" aria-label="Brand information">
+    <div className="bg-surface-card/80 rounded-xl p-5 backdrop-blur" role="form" aria-label="Brand information">
       <h2 className="text-lg font-bold text-white mb-4">🏢 Brand Information</h2>
       <div className="grid md:grid-cols-2 gap-3">
         <FormField label="Brand Name *" value={brand.name} onChange={v => updateBrand('name', v)} placeholder="Enter brand name"/>
@@ -17,7 +17,7 @@ export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNe
         <FormSelect label="Business Model" value={brand.businessModel} onChange={v => updateBrand('businessModel', v)} options={['B2C','B2B','Hybrid']}/>
         <FormSelect label="Brand Tone" value={brand.tone} onChange={v => updateBrand('tone', v)} options={TONES}/>
         <div>
-          <label className="block text-purple-200 mb-1 text-xs">Monthly Goals</label>
+          <label className="block text-brand-softer mb-1 text-xs">Monthly Goals</label>
           <div className="flex flex-wrap gap-1" role="group" aria-label="Monthly goals">
             {GOAL_OPTIONS.map(g=>(
               <TogglePill key={g} label={g} active={brand.goals.includes(g)} onClick={()=>toggleGoal(g)}/>
@@ -31,7 +31,7 @@ export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNe
       <div className="mt-4 flex justify-end">
         <button onClick={onNext} onMouseEnter={onNextHover} disabled={!canProceed}
           aria-label="Proceed to platform selection"
-          className="bg-purple-500 hover:bg-purple-600 disabled:bg-slate-600 disabled:cursor-not-allowed text-white px-5 py-2 rounded-lg text-sm font-medium flex items-center gap-1 transition-colors">
+          className="bg-brand hover:bg-brand-strong disabled:bg-surface-hover disabled:cursor-not-allowed text-white px-5 py-2 rounded-lg text-sm font-medium flex items-center gap-1 transition-colors">
           Next <ChevronRight size={16} aria-hidden="true"/>
         </button>
       </div>

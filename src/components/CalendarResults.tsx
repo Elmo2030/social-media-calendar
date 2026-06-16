@@ -14,8 +14,8 @@ const FIX_BADGES: BadgeItem[] = [
 
 interface StatCardProps { label: string; value: number; }
 const StatCard = memo(({ label, value }: StatCardProps) => (
-  <div className="bg-slate-700/50 p-3 rounded-lg text-center">
-    <div className="text-purple-300 text-xs">{label}</div>
+  <div className="bg-surface-raised/50 p-3 rounded-lg text-center">
+    <div className="text-brand-soft text-xs">{label}</div>
     <div className="text-xl font-bold text-white">{value}</div>
   </div>
 ));
@@ -38,15 +38,15 @@ const CalendarResults = ({ brand, platformCalendars, copied, building, onDownloa
         ))}
       </div>
 
-      <div className="bg-slate-800/80 rounded-xl p-5 backdrop-blur">
+      <div className="bg-surface-card/80 rounded-xl p-5 backdrop-blur">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
           <div>
             <h2 className="text-lg font-bold text-white">{brand.name}</h2>
-            <p className="text-purple-300 text-sm">Content Calendar Ready</p>
+            <p className="text-brand-soft text-sm">Content Calendar Ready</p>
           </div>
           <div className="flex gap-2">
             <button onClick={onCopy} disabled={building} aria-label={copied?'Copied to clipboard':'Copy HTML to clipboard'}
-              className="bg-slate-600 hover:bg-slate-500 disabled:opacity-60 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-1 transition-colors">
+              className="bg-surface-hover hover:bg-surface-muted disabled:opacity-60 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-1 transition-colors">
               {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:copied?<Check size={16} aria-hidden="true"/>:<Copy size={16} aria-hidden="true"/>}
               {building?'Building…':copied?'Copied!':'Copy HTML'}
             </button>
@@ -79,7 +79,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, building, onDownloa
 
       <div className="flex gap-3">
         <button onClick={onReset} aria-label="Start a new calendar"
-          className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+          className="bg-surface-raised hover:bg-surface-hover text-white px-4 py-2 rounded-lg text-sm transition-colors">
           New Calendar
         </button>
         <button onClick={onDownload} disabled={building} aria-label="Download premium calendar as HTML"
