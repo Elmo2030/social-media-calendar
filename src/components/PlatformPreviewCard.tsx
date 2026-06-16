@@ -39,7 +39,7 @@ export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggl
                   <td className="p-2"><span className="px-2 py-0.5 rounded-full text-white text-xs" style={{background:d.pillarColor}}>{d.pillar}</span></td>
                   <td className="p-2 text-content max-w-xs">{d.topic.length>45?d.topic.slice(0,45)+'…':d.topic}</td>
                   <td className="p-2 text-content-muted">{d.format}</td>
-                  <td className="p-2 text-green-400">{d.goal}</td>
+                  <td className="p-2 text-feedback-success">{d.goal}</td>
                 </tr>
               ))}
             </tbody>

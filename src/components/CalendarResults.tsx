@@ -51,7 +51,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, building, onDownloa
               {building?'Building…':copied?'Copied!':'Copy HTML'}
             </button>
             <button onClick={onDownload} disabled={building} aria-label="Download calendar as HTML file"
-              className="bg-green-500 hover:bg-green-600 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-medium transition-colors">
+              className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-medium transition-colors">
               {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
               {building?'Building…':'Download'}
             </button>
@@ -62,8 +62,8 @@ const CalendarResults = ({ brand, platformCalendars, copied, building, onDownloa
           <StatCard label="Platforms"   value={brand.platforms.length}/>
           <StatCard label="Pillars"     value={CONTENT_PILLARS.length}/>
         </div>
-        <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-          <p className="text-green-300 text-sm flex items-center gap-2">
+        <div className="bg-feedback-success/10 border border-feedback-success/30 rounded-lg p-4">
+          <p className="text-feedback-success text-sm flex items-center gap-2">
             <FileText size={18} aria-hidden="true"/>
             Download saves a full HTML document. Open in any browser and print to PDF.
           </p>
@@ -83,7 +83,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, building, onDownloa
           New Calendar
         </button>
         <button onClick={onDownload} disabled={building} aria-label="Download premium calendar as HTML"
-          className="bg-green-500 hover:bg-green-600 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 flex-1 justify-center font-medium transition-colors">
+          className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 flex-1 justify-center font-medium transition-colors">
           {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
           {building?'Building HTML…':'Download Premium Calendar'}
         </button>

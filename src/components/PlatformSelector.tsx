@@ -8,7 +8,7 @@ export default function PlatformSelector({ selected, onToggle, onBack, onGenerat
     <div className="bg-surface-card/80 rounded-xl p-5 backdrop-blur">
       <h2 className="text-lg font-bold text-white mb-1">📣 Select Platforms</h2>
       <p className="text-content-muted text-xs mb-4" aria-live="polite">{selected.length} of {ALL_PLATFORMS.length} selected</p>
-      <div className="grid grid-cols-3 gap-3" role="group" aria-label="Platform selection">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3" role="group" aria-label="Platform selection">
         {ALL_PLATFORMS.map(p => {
           const active = selected.includes(p);
           const color  = PLATFORM_DATA[p].color;

@@ -122,15 +122,15 @@ Each criterion scored 1-10, with 8 sub-points per criterion.
 | Sub-point | Current | Target | Priority |
 |-----------|---------|--------|----------|
 | 🎨 Design Tokens & Color System | ✅ 9 | 9 | DONE |
-| 📱 Responsive Design | 4 | 9 | #1 (next) |
-| 📭 Empty & Error States | 1 | 8 | #3 |
+| 📱 Responsive Design | ✅ 9 | 9 | DONE |
+| 📭 Empty & Error States | 1 | 8 | #1 (next) |
 | 📝 Form UX & Validation Messages | 3 | 8 | #4 |
 | ✨ Loading & Interactive Feedback | 7 | 9 | #5 |
 | 🌊 Micro-animations & Transitions | 3 | 8 | #6 |
 | 🎯 Focus & Keyboard States | 2 | 8 | #7 |
 | 📖 Typography & Visual Hierarchy | 5 | 8 | #8 |
 
-**NEXT: Responsive Design** — Design Tokens shipped (CSS-var channels in index.css → Tailwind semantic colors). Token names: brand{,-deep,-strong,-light,-soft,-softer}, accent, surface{base,card,raised,hover,muted}, content{,-muted,-faint}, feedback{success,warning,error,info}.
+**NEXT: Empty & Error States** — Responsive shipped (platform grid 2→3 cols at sm:, tables already scroll, form already md:grid-cols-2). Design Tokens shipped (CSS-var channels in index.css → Tailwind semantic colors). Token names: brand{,-deep,-strong,-light,-soft,-softer}, accent, surface{base,card,raised,hover,muted}, content{,-muted,-faint}, feedback{success,warning,error,info}.
 
 ### ⏳ PENDING — قابلية التوسع والصيانة (Scalability)
 Not started yet. Original score: 3/10.
