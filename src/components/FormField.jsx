@@ -1,7 +1,8 @@
-// src/components/FormField.jsx — FIX (DRY): reusable form controls
-// Eliminates the repeated label+input/select pattern from BrandForm
+// src/components/FormField.jsx
+// PERF-1: memo() — prevents re-render on unrelated brand field changes
+import { memo } from 'react';
 
-export const FormField = ({ label, value, onChange, placeholder, type = 'text', colSpan = '' }) => (
+export const FormField = memo(({ label, value, onChange, placeholder, type = 'text', colSpan = '' }) => (
   <div className={colSpan}>
     <label className="block text-purple-200 mb-1 text-xs">{label}</label>
     <input
@@ -12,9 +13,10 @@ export const FormField = ({ label, value, onChange, placeholder, type = 'text', 
       className="w-full bg-slate-700 text-white rounded-lg p-2.5 text-sm border border-slate-600 focus:border-purple-500 outline-none"
     />
   </div>
-);
+));
+FormField.displayName = 'FormField';
 
-export const FormSelect = ({ label, value, onChange, options }) => (
+export const FormSelect = memo(({ label, value, onChange, options }) => (
   <div>
     <label className="block text-purple-200 mb-1 text-xs">{label}</label>
     <select
@@ -29,9 +31,10 @@ export const FormSelect = ({ label, value, onChange, options }) => (
       })}
     </select>
   </div>
-);
+));
+FormSelect.displayName = 'FormSelect';
 
-export const TogglePill = ({ label, active, onClick }) => (
+export const TogglePill = memo(({ label, active, onClick }) => (
   <button
     onClick={onClick}
     className={`px-2 py-1 rounded text-xs transition-colors ${
@@ -40,4 +43,5 @@ export const TogglePill = ({ label, active, onClick }) => (
   >
     {label}
   </button>
-);
+));
+TogglePill.displayName = 'TogglePill';

@@ -1,17 +1,16 @@
-// src/hooks/useCalendar.js — Pure calendar logic, fully memoized (FIX 2)
+// src/hooks/useCalendar.js
+// PERF-2: precise dependency array — primitives only, not the full brand object
 import { useMemo } from 'react';
 import { PLATFORM_DATA, CONTENT_PILLARS, DAYS } from '../data/constants.js';
 
-// ── Content templates (pure functions — no side effects) ──────────────────────
 const TOPICS = {
-  Education:      (ind) => [`How to choose the right ${ind} solution`,`Common ${ind} mistakes to avoid`,`Beginner guide to ${ind}`,`Key factors before investing in ${ind}`,`${ind} trends shaping 2025`],
-  Authority:      (ind) => [`Expert perspective on the future of ${ind}`,`What 10 years in ${ind} taught us`,`${ind} industry analysis: where it's heading`,`Overcoming top ${ind} challenges`,`Our proven ${ind} excellence approach`],
+  Education:      (ind)  => [`How to choose the right ${ind} solution`,`Common ${ind} mistakes to avoid`,`Beginner guide to ${ind}`,`Key factors before investing in ${ind}`,`${ind} trends shaping 2025`],
+  Authority:      (ind)  => [`Expert perspective on the future of ${ind}`,`What 10 years in ${ind} taught us`,`${ind} industry analysis`,`Overcoming top ${ind} challenges`,`Our proven ${ind} excellence approach`],
   Product:        (prod) => [`How ${prod} solves your biggest challenges`,`Feature spotlight: what makes ${prod} unique`,`Real client results with ${prod}`,`Getting started with ${prod}`,`Why leaders choose ${prod}`],
-  Engagement:     (ind) => [`What's your biggest challenge in ${ind}?`,`This or that: ${ind} edition`,`Share your ${ind} experience`,`Poll: top priorities in ${ind}`,`Caption this ${ind} moment`],
-  'Social Proof': () => [`Client success story: remarkable results`,`Before & after: real transformation`,`What clients say about us`,`Case study: exceptional delivery`,`Celebrating client milestones`],
-  'Behind Scenes':() => [`A day in the life at our office`,`Meet the team behind the brand`,`How we prepare for projects`,`Our process from start to finish`,`Team culture: what drives us`],
+  Engagement:     (ind)  => [`What's your biggest challenge in ${ind}?`,`This or that: ${ind} edition`,`Share your ${ind} experience`,`Poll: top priorities in ${ind}`,`Caption this ${ind} moment`],
+  'Social Proof': ()     => [`Client success story: remarkable results`,`Before & after: real transformation`,`What clients say about us`,`Case study: exceptional delivery`,`Celebrating client milestones`],
+  'Behind Scenes':()     => [`A day in the life at our office`,`Meet the team behind the brand`,`How we prepare for projects`,`Our process from start to finish`,`Team culture: what drives us`],
 };
-
 const CTAS = {
   'Brand Awareness': [`Follow for more insights`,`Share with someone who needs this`,`Save this for later`,`Turn on notifications`],
   'Lead Generation': [`Link in bio to learn more`,`DM us for details`,`Comment for info`,`Book a free consultation`],
@@ -20,18 +19,16 @@ const CTAS = {
   Community:         [`Tag a friend who needs this`,`Join our community`,`Follow for more`,`Be part of the conversation`],
   Engagement:        [`Drop your answer below`,`Double tap if you agree`,`Share your experience`,`Vote in our stories`],
 };
-
 const CAPTIONS = {
-  Professional:  (t) => `Industry insight: ${t}. Key takeaways for decision-makers inside.`,
-  Bold:          (t) => `Truth bomb: ${t}. Here's what nobody is telling you.`,
-  Friendly:      (t) => `Let's talk about ${t}. We've got everything you need.`,
-  Educational:   (t) => `Learn: ${t}. Breaking it down step by step.`,
-  Luxurious:     (t) => `Excellence defined: ${t}. Elevate your standards today.`,
-  Playful:       (t) => `Real talk: ${t}. No jargon, just pure value.`,
-  Authoritative: (t) => `Expert analysis: ${t}. Data-driven insights you can trust.`,
+  Professional:  t => `Industry insight: ${t}. Key takeaways for decision-makers inside.`,
+  Bold:          t => `Truth bomb: ${t}. Here's what nobody is telling you.`,
+  Friendly:      t => `Let's talk about ${t}. We've got everything you need.`,
+  Educational:   t => `Learn: ${t}. Breaking it down step by step.`,
+  Luxurious:     t => `Excellence defined: ${t}. Elevate your standards today.`,
+  Playful:       t => `Real talk: ${t}. No jargon, just pure value.`,
+  Authoritative: t => `Expert analysis: ${t}. Data-driven insights you can trust.`,
 };
 
-// ── Pure calendar builder — safe to useMemo ───────────────────────────────────
 export const buildCalendar = (platform, { industry, products, goals, tone }) => {
   const { formats, angles } = PLATFORM_DATA[platform];
   const activeGoals = goals.length > 0 ? goals : ['Brand Awareness'];
@@ -42,27 +39,28 @@ export const buildCalendar = (platform, { industry, products, goals, tone }) => 
     const raw    = pillar.name === 'Product' ? products : industry;
     const topics = TOPICS[pillar.name]?.(raw) ?? TOPICS.Education(industry);
     const topic  = topics[i % topics.length];
-    const ctas   = CTAS[goal] ?? CTAS['Brand Awareness'];
     return {
-      day: i, dayName: DAYS[(i - 1) % 7], week: Math.ceil(i / 7),
+      day: i, dayName: DAYS[(i-1)%7], week: Math.ceil(i/7),
       pillar: pillar.name, pillarColor: pillar.color,
       topic, angle: angles[i % angles.length],
       format: formats[i % formats.length],
       caption: (CAPTIONS[tone] ?? CAPTIONS.Professional)(topic),
-      cta: ctas[i % ctas.length],
+      cta: (CTAS[goal] ?? CTAS['Brand Awareness'])[i % 4],
       goal,
     };
   });
 };
 
-// ── Hook — memoized per brand change ─────────────────────────────────────────
 export const useCalendar = (brand, showCalendar) => {
+  // PERF-2: destructure to primitive deps — avoids rebuilding on unrelated brand changes
+  const { platforms, industry, products, goals, tone } = brand;
+
   const platformCalendars = useMemo(() => {
-    if (!showCalendar || !brand.platforms.length) return {};
+    if (!showCalendar || !platforms.length) return {};
     return Object.fromEntries(
-      brand.platforms.map(p => [p, buildCalendar(p, brand)])
+      platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone })])
     );
-  }, [showCalendar, brand.platforms, brand.industry, brand.products, brand.goals, brand.tone]);
+  }, [showCalendar, platforms, industry, products, goals, tone]); // ✅ primitives only
 
   return { platformCalendars };
 };

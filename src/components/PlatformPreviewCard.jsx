@@ -1,16 +1,22 @@
-// src/components/PlatformPreviewCard.jsx — Expandable 7-day preview row
+// src/components/PlatformPreviewCard.jsx
+// PERF-4: calls onToggle(platform) internally — no inline arrow needed from parent
+// PERF-1: memo() stays fully effective — all props are stable primitives/refs
+import { memo, useCallback } from 'react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import { PLATFORM_DATA } from '../data/constants.js';
 
-export const PlatformPreviewCard = ({ platform, calendar, expanded, onToggle }) => {
-  const color  = PLATFORM_DATA[platform].color;
-  const hdrBg  = color === '#FFFC00' ? '#333' : color;
+export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggle }) => {
+  const color   = PLATFORM_DATA[platform].color;
+  const hdrBg   = color === '#FFFC00' ? '#333' : color;
   const preview = calendar?.slice(0, 7) ?? [];
+
+  // Stable internal handler — calls parent with platform id
+  const handleToggle = useCallback(() => onToggle(platform), [onToggle, platform]);
 
   return (
     <div className="bg-slate-800/80 rounded-xl overflow-hidden backdrop-blur">
       <button
-        onClick={onToggle}
+        onClick={handleToggle}
         className="w-full p-3 flex justify-between items-center hover:bg-white/5 transition-colors"
         style={{ background: hdrBg + '33' }}
       >
@@ -19,9 +25,7 @@ export const PlatformPreviewCard = ({ platform, calendar, expanded, onToggle }) 
           <span className="font-bold text-white">{platform}</span>
           <span className="text-slate-400 text-xs">30 posts ready</span>
         </div>
-        {expanded
-          ? <ChevronDown className="text-white" size={18} />
-          : <ChevronRight className="text-white" size={18} />}
+        {expanded ? <ChevronDown className="text-white" size={18}/> : <ChevronRight className="text-white" size={18}/>}
       </button>
 
       {expanded && (
@@ -29,7 +33,7 @@ export const PlatformPreviewCard = ({ platform, calendar, expanded, onToggle }) 
           <table className="w-full text-xs">
             <thead>
               <tr className="bg-slate-700/50 text-left">
-                {['Day', 'Pillar', 'Topic', 'Format', 'Goal'].map(h => (
+                {['Day','Pillar','Topic','Format','Goal'].map(h => (
                   <th key={h} className="p-2 text-purple-200 font-semibold">{h}</th>
                 ))}
               </tr>
@@ -53,10 +57,11 @@ export const PlatformPreviewCard = ({ platform, calendar, expanded, onToggle }) 
             </tbody>
           </table>
           <p className="text-slate-500 text-xs mt-2 text-center">
-            Preview: first 7 days — all 30 included in downloaded file
+            Preview: first 7 days — all 30 in downloaded file
           </p>
         </div>
       )}
     </div>
   );
-};
+});
+PlatformPreviewCard.displayName = 'PlatformPreviewCard';

@@ -1,4 +1,5 @@
-// src/hooks/useExport.js — Download + Copy logic, fully isolated
+// src/hooks/useExport.js
+// PERF-2: precise deps — only brand fields used in HTML, not the whole object
 import { useState, useMemo, useCallback } from 'react';
 import { buildHTMLDocument } from '../utils/htmlExport.js';
 import { sanitize } from '../utils/sanitize.js';
@@ -6,15 +7,18 @@ import { sanitize } from '../utils/sanitize.js';
 export const useExport = (brand, platformCalendars, showCalendar) => {
   const [copied, setCopied] = useState(false);
 
-  // FIX 2: single memoized document shared by both Download and Copy
+  // PERF-2: destructure exact fields used by buildHTMLDocument
+  const { name, industry, country, businessModel, goals, tone, audience, products, differentiation, platforms } = brand;
+
   const htmlDocument = useMemo(() => {
     if (!showCalendar || !Object.keys(platformCalendars).length) return '';
     return buildHTMLDocument(brand, platformCalendars);
-  }, [showCalendar, platformCalendars, brand]);
+  // ✅ primitive deps — changing 'differentiation' no longer re-triggers if htmlExport doesn't use it
+  }, [showCalendar, platformCalendars, name, industry, country, businessModel, goals, tone, audience, products, platforms]);
 
   const handleDownload = useCallback(() => {
     try {
-      const filename = `${sanitize(brand.name).replace(/\s+/g, '_') || 'calendar'}_Content_Calendar.html`;
+      const filename = `${sanitize(name).replace(/\s+/g, '_') || 'calendar'}_Content_Calendar.html`;
       const blob = new Blob([htmlDocument], { type: 'text/html;charset=utf-8' });
       const url  = URL.createObjectURL(blob);
       const a    = Object.assign(document.createElement('a'), { href: url, download: filename });
@@ -25,7 +29,7 @@ export const useExport = (brand, platformCalendars, showCalendar) => {
     } catch {
       alert('Download failed — try Copy HTML instead.');
     }
-  }, [htmlDocument, brand.name]);
+  }, [htmlDocument, name]);
 
   const handleCopy = useCallback(async () => {
     try {
