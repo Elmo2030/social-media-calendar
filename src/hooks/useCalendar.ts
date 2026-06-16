@@ -66,10 +66,11 @@ export const useCalendar = (brand: Brand, showCalendar: boolean): UseCalendarRet
   const [calendars, setCalendars]   = useState<PlatformCalendars>({});
 
   useEffect(() => {
-    if (!showCalendar || !platforms.length) { setCalendars({}); return; }
     startCompute(() => {
       setCalendars(
-        Object.fromEntries(platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone })])) as PlatformCalendars
+        showCalendar && platforms.length
+          ? Object.fromEntries(platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone })])) as PlatformCalendars
+          : {}
       );
     });
   }, [showCalendar, platforms, industry, products, goals, tone]);

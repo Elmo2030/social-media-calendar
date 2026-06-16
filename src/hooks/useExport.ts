@@ -1,5 +1,5 @@
 // src/hooks/useExport.ts
-import { useState, useCallback, useRef, useMemo } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { sanitize } from '../utils/sanitize.js';
 import type { Brand, PlatformCalendars } from '../types/index.js';
 
@@ -57,7 +57,9 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
     finally  { setBuilding(false); }
   }, [buildDoc]);
 
-  useMemo(() => {
+  // Warm the export module once the calendar is ready, so the first
+  // download/copy doesn't pay the dynamic-import latency.
+  useEffect(() => {
     if (showCalendar && Object.keys(platformCalendars).length) getModule();
   }, [showCalendar, platformCalendars, getModule]);
 
