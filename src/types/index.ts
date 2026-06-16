@@ -75,6 +75,8 @@ export interface FormFieldProps {
   placeholder?: string;
   type?:        string;
   colSpan?:     string;
+  error?:       string;
+  onBlur?:      () => void;
 }
 
 export interface FormSelectOption {
@@ -87,6 +89,8 @@ export interface FormSelectProps {
   value:    string;
   onChange: (v: string) => void;
   options:  Array<string | FormSelectOption>;
+  error?:   string;
+  onBlur?:  () => void;
 }
 
 export interface TogglePillProps {

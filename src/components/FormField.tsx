@@ -2,28 +2,43 @@
 import { memo } from 'react';
 import type { FormFieldProps, FormSelectProps, TogglePillProps, FormSelectOption } from '../types/index.js';
 
-export const FormField = memo(({ label, value, onChange, placeholder, type = 'text', colSpan = '' }: FormFieldProps) => (
-  <div className={colSpan}>
-    <label className="block text-brand-softer mb-1 text-xs">{label}</label>
-    <input type={type} value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder}
-      className="w-full bg-surface-raised text-white rounded-lg p-2.5 text-sm border border-surface-hover focus:border-brand outline-none"/>
-  </div>
-));
+const slug = (s: string) => s.replace(/\W+/g, '-').toLowerCase();
+// border tokens swap to feedback-error when the field carries a validation message
+const borderClass = (error?: string) =>
+  error ? 'border-feedback-error focus:border-feedback-error' : 'border-surface-hover focus:border-brand';
+
+export const FormField = memo(({ label, value, onChange, placeholder, type = 'text', colSpan = '', error, onBlur }: FormFieldProps) => {
+  const id = slug(label);
+  return (
+    <div className={colSpan}>
+      <label htmlFor={id} className="block text-brand-softer mb-1 text-xs">{label}</label>
+      <input id={id} type={type} value={value} onChange={e => onChange(e.target.value)} onBlur={onBlur} placeholder={placeholder}
+        aria-invalid={!!error} aria-describedby={error ? `${id}-err` : undefined}
+        className={`w-full bg-surface-raised text-white rounded-lg p-2.5 text-sm border outline-none ${borderClass(error)}`}/>
+      {error && <p id={`${id}-err`} role="alert" className="mt-1 text-feedback-error text-xs">{error}</p>}
+    </div>
+  );
+});
 FormField.displayName = 'FormField';
 
-export const FormSelect = memo(({ label, value, onChange, options }: FormSelectProps) => (
-  <div>
-    <label className="block text-brand-softer mb-1 text-xs">{label}</label>
-    <select value={value} onChange={e => onChange(e.target.value)}
-      className="w-full bg-surface-raised text-white rounded-lg p-2.5 text-sm border border-surface-hover focus:border-brand outline-none">
-      {options.map(opt => {
-        const val   = typeof opt === 'string' ? opt : (opt as FormSelectOption).value;
-        const label = typeof opt === 'string' ? opt : (opt as FormSelectOption).label;
-        return <option key={val} value={val}>{label}</option>;
-      })}
-    </select>
-  </div>
-));
+export const FormSelect = memo(({ label, value, onChange, options, error, onBlur }: FormSelectProps) => {
+  const id = slug(label);
+  return (
+    <div>
+      <label htmlFor={id} className="block text-brand-softer mb-1 text-xs">{label}</label>
+      <select id={id} value={value} onChange={e => onChange(e.target.value)} onBlur={onBlur}
+        aria-invalid={!!error} aria-describedby={error ? `${id}-err` : undefined}
+        className={`w-full bg-surface-raised text-white rounded-lg p-2.5 text-sm border outline-none ${borderClass(error)}`}>
+        {options.map(opt => {
+          const val   = typeof opt === 'string' ? opt : (opt as FormSelectOption).value;
+          const label = typeof opt === 'string' ? opt : (opt as FormSelectOption).label;
+          return <option key={val} value={val}>{label}</option>;
+        })}
+      </select>
+      {error && <p id={`${id}-err`} role="alert" className="mt-1 text-feedback-error text-xs">{error}</p>}
+    </div>
+  );
+});
 FormSelect.displayName = 'FormSelect';
 
 export const TogglePill = memo(({ label, active, onClick }: TogglePillProps) => (
