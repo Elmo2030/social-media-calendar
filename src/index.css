@@ -35,6 +35,11 @@
   --feedback-info:    59 130 246;
 }
 
+/* Typography baseline: crisper rendering + tighter heading hierarchy.
+   Global rules so every heading inherits the scale without per-component classes. */
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.15; }
+
 /* Press feedback for every button — one rule beats per-button active: classes */
 button:not(:disabled):active { transform: scale(0.97); }
 

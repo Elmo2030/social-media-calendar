@@ -118,7 +118,7 @@ Each criterion scored 1-10, with 8 sub-points per criterion.
 | Environment/Secrets | 7 | 7 |
 | Dependency Audit | 5 | 5 |
 
-### 🔄 IN PROGRESS — جودة التصميم وتجربة المستخدم (UI/UX)
+### ✅ DONE — جودة التصميم وتجربة المستخدم (UI/UX)
 | Sub-point | Current | Target | Priority |
 |-----------|---------|--------|----------|
 | 🎨 Design Tokens & Color System | ✅ 9 | 9 | DONE |
@@ -128,9 +128,11 @@ Each criterion scored 1-10, with 8 sub-points per criterion.
 | ✨ Loading & Interactive Feedback | ✅ 9 | 9 | DONE |
 | 🌊 Micro-animations & Transitions | ✅ 8 | 8 | DONE |
 | 🎯 Focus & Keyboard States | ✅ 8 | 8 | DONE |
-| 📖 Typography & Visual Hierarchy | 5 | 8 | #1 (next) |
+| 📖 Typography & Visual Hierarchy | ✅ 8 | 8 | DONE |
 
-**NEXT: Typography & Visual Hierarchy** — Focus/keyboard shipped (global :focus-visible ring with --brand-light in index.css; keyboard-only, mouse stays ring-free; fixes outline-none everywhere). Micro-animations shipped (fade-in/fade-in-up keyframes in tailwind.config, entrance on step containers + feedback, global button:active scale, platform hover lift, prefers-reduced-motion guard in index.css). Loading/feedback shipped (useExport downloaded state → transient "Downloaded!" + check on both download buttons, parity with copy). Form validation shipped (FormField/FormSelect take error+onBlur → inline feedback-error msg + aria-invalid/aria-describedby; BrandForm touched-state, enabled guard surfaces messages on Next click). Empty/Error shipped (useExport returns error+dismissError → inline feedback-error banner in CalendarResults, replaced alert(); PlatformSelector empty-state hint at 0 selected). Responsive shipped (platform grid 2→3 cols at sm:, tables already scroll, form already md:grid-cols-2). Design Tokens shipped (CSS-var channels in index.css → Tailwind semantic colors). Token names: brand{,-deep,-strong,-light,-soft,-softer}, accent, surface{base,card,raised,hover,muted}, content{,-muted,-faint}, feedback{success,warning,error,info}.
+**UI/UX COMPLETE** ✅ — all 8 sub-points done. Typography shipped (antialiasing + global heading tracking/-0.02em in index.css, responsive hero text-3xl sm:text-4xl extrabold).
+
+Remaining criterion: ⏳ Scalability & Maintainability (3/10, not started). (fade-in/fade-in-up keyframes in tailwind.config, entrance on step containers + feedback, global button:active scale, platform hover lift, prefers-reduced-motion guard in index.css). Loading/feedback shipped (useExport downloaded state → transient "Downloaded!" + check on both download buttons, parity with copy). Form validation shipped (FormField/FormSelect take error+onBlur → inline feedback-error msg + aria-invalid/aria-describedby; BrandForm touched-state, enabled guard surfaces messages on Next click). Empty/Error shipped (useExport returns error+dismissError → inline feedback-error banner in CalendarResults, replaced alert(); PlatformSelector empty-state hint at 0 selected). Responsive shipped (platform grid 2→3 cols at sm:, tables already scroll, form already md:grid-cols-2). Design Tokens shipped (CSS-var channels in index.css → Tailwind semantic colors). Token names: brand{,-deep,-strong,-light,-soft,-softer}, accent, surface{base,card,raised,hover,muted}, content{,-muted,-faint}, feedback{success,warning,error,info}.
 
 ### ⏳ PENDING — قابلية التوسع والصيانة (Scalability)
 Not started yet. Original score: 3/10.

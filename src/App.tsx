@@ -60,8 +60,8 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-br from-surface-base via-brand-deep to-surface-base p-4">
       <div className="max-w-5xl mx-auto relative">
         <header className="text-center mb-6">
-          <h1 className="text-2xl font-bold text-white mb-1">Social Media Content Calendar</h1>
-          <p className="text-brand-softer text-sm">v3.0 — TypeScript + Accessibility</p>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-1">Social Media Content Calendar</h1>
+          <p className="text-brand-softer text-sm font-medium">v3.0 — TypeScript + Accessibility</p>
         </header>
         <nav aria-label="Progress steps"><StepIndicator step={step} isPending={isPending || isComputing}/></nav>
         <main className="mt-8">
