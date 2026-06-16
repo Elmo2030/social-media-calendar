@@ -1,6 +1,6 @@
 // src/components/CalendarResults.tsx
 import { useState, useCallback, memo } from 'react';
-import { Download, Copy, Check, FileText, ShieldCheck, Zap, Layers, Loader2 } from 'lucide-react';
+import { Download, Copy, Check, FileText, ShieldCheck, Zap, Layers, Loader2, AlertTriangle, X } from 'lucide-react';
 import { PlatformPreviewCard } from './PlatformPreviewCard.js';
 import type { CalendarResultsProps, PlatformName } from '../types/index.js';
 import { CONTENT_PILLARS } from '../data/constants.js';
@@ -21,7 +21,7 @@ const StatCard = memo(({ label, value }: StatCardProps) => (
 ));
 StatCard.displayName = 'StatCard';
 
-const CalendarResults = ({ brand, platformCalendars, copied, building, onDownload, onCopy, onReset }: CalendarResultsProps) => {
+const CalendarResults = ({ brand, platformCalendars, copied, building, error, onDownload, onCopy, onReset, onDismissError }: CalendarResultsProps) => {
   const [expanded, setExpanded] = useState<Record<PlatformName, boolean>>({} as Record<PlatformName, boolean>);
   const handleToggle = useCallback((platform: PlatformName) => {
     setExpanded(prev => ({ ...prev, [platform]: !prev[platform] }));
@@ -37,6 +37,15 @@ const CalendarResults = ({ brand, platformCalendars, copied, building, onDownloa
           </div>
         ))}
       </div>
+
+      {error && (
+        <div role="alert" className="flex items-start gap-2 bg-feedback-error/10 border border-feedback-error/40 text-feedback-error rounded-lg p-3 text-sm">
+          <AlertTriangle size={18} className="shrink-0 mt-0.5" aria-hidden="true"/>
+          <span className="flex-1">{error}</span>
+          <button onClick={onDismissError} aria-label="Dismiss error"
+            className="shrink-0 hover:opacity-70 transition-opacity"><X size={16} aria-hidden="true"/></button>
+        </div>
+      )}
 
       <div className="bg-surface-card/80 rounded-xl p-5 backdrop-blur">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">

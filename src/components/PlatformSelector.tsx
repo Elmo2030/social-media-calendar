@@ -22,6 +22,11 @@ export default function PlatformSelector({ selected, onToggle, onBack, onGenerat
           );
         })}
       </div>
+      {selected.length === 0 && (
+        <p className="mt-3 text-content-faint text-xs text-center" role="status">
+          👆 Pick at least one platform to generate your calendar.
+        </p>
+      )}
       <div className="mt-4 flex justify-between">
         <button onClick={onBack} aria-label="Go back to brand information"
           className="bg-surface-raised hover:bg-surface-hover text-white px-5 py-2 rounded-lg text-sm transition-colors">Back</button>

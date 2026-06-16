@@ -6,14 +6,17 @@ import type { Brand, PlatformCalendars } from '../types/index.js';
 type HtmlExportModule = { buildHTMLDocument: (b: Brand, c: PlatformCalendars) => string };
 
 interface UseExportReturn {
-  copied: boolean; building: boolean;
+  copied: boolean; building: boolean; error: string | null;
   handleDownload: () => Promise<void>;
   handleCopy:     () => Promise<void>;
+  dismissError:   () => void;
 }
 
 export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, showCalendar: boolean): UseExportReturn => {
   const [copied,   setCopied]   = useState(false);
   const [building, setBuilding] = useState(false);
+  const [error,    setError]    = useState<string | null>(null);
+  const dismissError = useCallback(() => setError(null), []);
   const moduleRef = useRef<HtmlExportModule | null>(null);
 
   const getModule = useCallback(async (): Promise<HtmlExportModule> => {
@@ -28,7 +31,7 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
 
   const handleDownload = useCallback(async (): Promise<void> => {
     try {
-      setBuilding(true);
+      setBuilding(true); setError(null);
       const html = await buildDoc();
       const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
       const url  = URL.createObjectURL(blob);
@@ -37,17 +40,17 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
       });
       document.body.appendChild(a); a.click(); document.body.removeChild(a);
       URL.revokeObjectURL(url);
-    } catch { alert('Download failed — try Copy HTML instead.'); }
+    } catch { setError('Download failed — try Copy HTML instead.'); }
     finally  { setBuilding(false); }
   }, [buildDoc, brand.name]);
 
   const handleCopy = useCallback(async (): Promise<void> => {
     try {
-      setBuilding(true);
+      setBuilding(true); setError(null);
       await navigator.clipboard.writeText(await buildDoc());
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch { alert('Clipboard unavailable.'); }
+    } catch { setError('Clipboard unavailable — your browser may block it on this page.'); }
     finally  { setBuilding(false); }
   }, [buildDoc]);
 
@@ -55,5 +58,5 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
     if (showCalendar && Object.keys(platformCalendars).length) getModule();
   }, [showCalendar, platformCalendars, getModule]);
 
-  return { copied, building, handleDownload, handleCopy };
+  return { copied, building, error, handleDownload, handleCopy, dismissError };
 };

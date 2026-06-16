@@ -53,7 +53,7 @@ export default function App() {
   const deferredBrand = useDeferredValue(brand);
   const isStale       = brand !== deferredBrand;
   const { platformCalendars, isComputing } = useCalendar(deferredBrand, showCalendar);
-  const { copied, building, handleDownload, handleCopy } = useExport(deferredBrand, platformCalendars, showCalendar);
+  const { copied, building, error, handleDownload, handleCopy, dismissError } = useExport(deferredBrand, platformCalendars, showCalendar);
   const handleReset = useCallback(() => { reset(); resetBrand(); }, [reset, resetBrand]);
 
   return (
@@ -72,7 +72,8 @@ export default function App() {
               <div className={`transition-opacity duration-300 ${isStale||isComputing?'opacity-50':'opacity-100'}`}
                 aria-busy={isStale||isComputing} aria-label="Calendar results">
                 <CalendarResults brand={deferredBrand} platformCalendars={platformCalendars}
-                  copied={copied} building={building} onDownload={handleDownload} onCopy={handleCopy} onReset={handleReset}/>
+                  copied={copied} building={building} error={error}
+                  onDownload={handleDownload} onCopy={handleCopy} onReset={handleReset} onDismissError={dismissError}/>
               </div>
             )}
           </Suspense>

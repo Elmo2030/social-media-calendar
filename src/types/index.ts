@@ -123,7 +123,9 @@ export interface CalendarResultsProps {
   platformCalendars:PlatformCalendars;
   copied:           boolean;
   building:         boolean;
+  error:            string | null;
   onDownload:       () => void;
   onCopy:           () => void;
   onReset:          () => void;
+  onDismissError:   () => void;
 }
