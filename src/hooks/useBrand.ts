@@ -1,7 +1,21 @@
 // src/hooks/useBrand.ts
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback, useEffect } from 'react';
 import type { Brand, BrandAction, PlatformName } from '../types/index.js';
 import { INITIAL_BRAND } from '../data/constants.js';
+
+const STORAGE_KEY = 'smc.brand';
+
+// Spread over INITIAL_BRAND so a stored object missing newer fields still
+// loads. ponytail: no schema versioning — add a version key if Brand's shape
+// churns enough that stale localStorage payloads would break.
+const loadBrand = (): Brand => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? { ...INITIAL_BRAND, ...JSON.parse(raw) } : INITIAL_BRAND;
+  } catch {
+    return INITIAL_BRAND;
+  }
+};
 
 const brandReducer = (state: Brand, action: BrandAction): Brand => {
   switch (action.type) {
@@ -22,7 +36,11 @@ interface UseBrandReturn {
 }
 
 export const useBrand = (): UseBrandReturn => {
-  const [brand, dispatch] = useReducer(brandReducer, INITIAL_BRAND);
+  const [brand, dispatch] = useReducer(brandReducer, INITIAL_BRAND, loadBrand);
+
+  useEffect(() => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(brand)); } catch { /* quota/private mode — non-fatal */ }
+  }, [brand]);
   const updateBrand    = useCallback((field: keyof Brand, value: Brand[keyof Brand]) => dispatch({ type: 'UPDATE_FIELD', field, value }), []);
   const toggleGoal     = useCallback((goal: string)            => dispatch({ type: 'TOGGLE_GOAL', goal }),         []);
   const togglePlatform = useCallback((platform: PlatformName)  => dispatch({ type: 'TOGGLE_PLATFORM', platform }), []);

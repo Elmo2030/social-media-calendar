@@ -2,12 +2,12 @@
 import { memo, useCallback } from 'react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import type { PlatformPreviewCardProps } from '../types/index.js';
-import { PLATFORM_DATA } from '../data/constants.js';
+import { PLATFORM_DATA, CALENDAR_DAYS, PREVIEW_DAYS } from '../data/constants.js';
 
 export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggle }: PlatformPreviewCardProps) => {
   const color   = PLATFORM_DATA[platform].color;
   const hdrBg   = color === '#FFFC00' ? '#333' : color;
-  const preview = calendar?.slice(0, 7) ?? [];
+  const preview = calendar?.slice(0, PREVIEW_DAYS) ?? [];
   const handleToggle = useCallback(() => onToggle(platform), [onToggle, platform]);
 
   return (
@@ -18,7 +18,7 @@ export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggl
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full" style={{ background: color }} aria-hidden="true"/>
           <span className="font-bold text-white">{platform}</span>
-          <span className="text-content-muted text-xs">30 posts ready</span>
+          <span className="text-content-muted text-xs">{CALENDAR_DAYS} posts ready</span>
         </div>
         {expanded ? <ChevronDown className="text-white" size={18}/> : <ChevronRight className="text-white" size={18}/>}
       </button>
@@ -44,7 +44,7 @@ export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggl
               ))}
             </tbody>
           </table>
-          <p className="text-content-faint text-xs mt-2 text-center">Preview: first 7 days — all 30 in downloaded file</p>
+          <p className="text-content-faint text-xs mt-2 text-center">Preview: first {PREVIEW_DAYS} days — all {CALENDAR_DAYS} in downloaded file</p>
         </div>
       )}
     </div>

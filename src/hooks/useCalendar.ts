@@ -1,7 +1,7 @@
 // src/hooks/useCalendar.ts
 import { useTransition, useState, useEffect } from 'react';
 import type { Brand, CalendarEntry, PlatformCalendars, PlatformName, PillarName, Tone } from '../types/index.js';
-import { PLATFORM_DATA, CONTENT_PILLARS, DAYS } from '../data/constants.js';
+import { PLATFORM_DATA, CONTENT_PILLARS, DAYS, CALENDAR_DAYS } from '../data/constants.js';
 
 type TopicFn = (arg: string) => string[];
 
@@ -34,7 +34,7 @@ const CAPTIONS: Record<Tone, (t: string) => string> = {
 export const buildCalendar = (platform: PlatformName, brand: Pick<Brand,'industry'|'products'|'goals'|'tone'>): CalendarEntry[] => {
   const { formats, angles } = PLATFORM_DATA[platform];
   const activeGoals = brand.goals.length > 0 ? brand.goals : ['Brand Awareness'];
-  return Array.from({ length: 30 }, (_, idx): CalendarEntry => {
+  return Array.from({ length: CALENDAR_DAYS }, (_, idx): CalendarEntry => {
     const i      = idx + 1;
     const pillar = CONTENT_PILLARS[i % CONTENT_PILLARS.length];
     const goal   = activeGoals[i % activeGoals.length];
@@ -44,7 +44,7 @@ export const buildCalendar = (platform: PlatformName, brand: Pick<Brand,'industr
     const topic   = topics[i % topics.length];
     const captionFn = CAPTIONS[brand.tone] ?? CAPTIONS.Professional;
     return {
-      day: i, dayName: DAYS[(i-1)%7], week: Math.ceil(i/7),
+      day: i, dayName: DAYS[(i-1)%DAYS.length], week: Math.ceil(i/DAYS.length),
       pillar: pillar.name, pillarColor: pillar.color,
       topic, angle: angles[i % angles.length],
       format: formats[i % formats.length],

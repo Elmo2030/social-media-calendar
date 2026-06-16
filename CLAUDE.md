@@ -134,8 +134,12 @@ Each criterion scored 1-10, with 8 sub-points per criterion.
 
 Remaining criterion: ⏳ Scalability & Maintainability (3/10, not started). (fade-in/fade-in-up keyframes in tailwind.config, entrance on step containers + feedback, global button:active scale, platform hover lift, prefers-reduced-motion guard in index.css). Loading/feedback shipped (useExport downloaded state → transient "Downloaded!" + check on both download buttons, parity with copy). Form validation shipped (FormField/FormSelect take error+onBlur → inline feedback-error msg + aria-invalid/aria-describedby; BrandForm touched-state, enabled guard surfaces messages on Next click). Empty/Error shipped (useExport returns error+dismissError → inline feedback-error banner in CalendarResults, replaced alert(); PlatformSelector empty-state hint at 0 selected). Responsive shipped (platform grid 2→3 cols at sm:, tables already scroll, form already md:grid-cols-2). Design Tokens shipped (CSS-var channels in index.css → Tailwind semantic colors). Token names: brand{,-deep,-strong,-light,-soft,-softer}, accent, surface{base,card,raised,hover,muted}, content{,-muted,-faint}, feedback{success,warning,error,info}.
 
-### ⏳ PENDING — قابلية التوسع والصيانة (Scalability)
-Not started yet. Original score: 3/10.
+### 🔄 IN PROGRESS — قابلية التوسع والصيانة (Scalability)
+Original 3/10. Shipped: localStorage persistence in useBrand (lazy init via
+loadBrand + save effect, INITIAL_BRAND merge for forward-compat); magic numbers
+→ CALENDAR_DAYS / PREVIEW_DAYS constants; vitest + 8 tests (sanitize, buildCalendar);
+lint gate restored. Still open: i18n (UI is English-only), backend/data layer,
+4 write-only Brand fields (see ponytail-audit).
 
 ---
 

@@ -19,6 +19,9 @@ export const PLATFORM_DATA: Record<PlatformName, PlatformConfig> = {
   Snapchat:  { color: '#FFFC00', formats: ['Story','Spotlight','BTS','Update','Reveal','Day-in-Life'],  angles: ['Raw BTS','Sneak peek','Quick update','Personal','Flash offer','Real-time'] },
 };
 
+export const CALENDAR_DAYS = 30; // days generated per platform
+export const PREVIEW_DAYS   = 7;  // rows shown in the in-app preview table
+
 export const INDUSTRIES:    string[]         = ['Real Estate','E-commerce','Healthcare','Education','Food and Beverage','Technology','Finance','Fashion','Automotive','Travel','Other'];
 export const TONES:         Tone[]           = ['Professional','Bold','Friendly','Educational','Luxurious','Playful','Authoritative'];
 export const GOAL_OPTIONS:  string[]         = ['Brand Awareness','Lead Generation','Sales','Authority','Community','Engagement'];

@@ -3,7 +3,7 @@ import { useState, useCallback, memo } from 'react';
 import { Download, Copy, Check, FileText, ShieldCheck, Zap, Layers, Loader2, AlertTriangle, X } from 'lucide-react';
 import { PlatformPreviewCard } from './PlatformPreviewCard.js';
 import type { CalendarResultsProps, PlatformName } from '../types/index.js';
-import { CONTENT_PILLARS } from '../data/constants.js';
+import { CONTENT_PILLARS, CALENDAR_DAYS } from '../data/constants.js';
 
 interface BadgeItem { Icon: React.ElementType; label: string; color: string; }
 const FIX_BADGES: BadgeItem[] = [
@@ -67,7 +67,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
           </div>
         </div>
         <div className="grid grid-cols-3 gap-3 mb-4" role="group" aria-label="Calendar statistics">
-          <StatCard label="Total Posts" value={brand.platforms.length * 30}/>
+          <StatCard label="Total Posts" value={brand.platforms.length * CALENDAR_DAYS}/>
           <StatCard label="Platforms"   value={brand.platforms.length}/>
           <StatCard label="Pillars"     value={CONTENT_PILLARS.length}/>
         </div>
