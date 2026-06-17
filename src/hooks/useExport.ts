@@ -1,9 +1,11 @@
 // src/hooks/useExport.ts
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { sanitize } from '../utils/sanitize.js';
+import { getLang } from '../i18n.js';
 import type { Brand, PlatformCalendars } from '../types/index.js';
+import type { Lang } from '../i18n.js';
 
-type HtmlExportModule = { buildHTMLDocument: (b: Brand, c: PlatformCalendars) => string };
+type HtmlExportModule = { buildHTMLDocument: (b: Brand, c: PlatformCalendars, lang: Lang) => string };
 
 interface UseExportReturn {
   copied: boolean; downloaded: boolean; building: boolean; error: string | null;
@@ -27,7 +29,7 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
 
   const buildDoc = useCallback(async (): Promise<string> => {
     const { buildHTMLDocument } = await getModule();
-    return buildHTMLDocument(brand, platformCalendars);
+    return buildHTMLDocument(brand, platformCalendars, getLang());
   }, [brand, platformCalendars, getModule]);
 
   const handleDownload = useCallback(async (): Promise<void> => {

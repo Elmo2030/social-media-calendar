@@ -82,6 +82,7 @@ function read(): Lang {
 }
 
 function applyDir(l: Lang): void {
+  if (typeof document === 'undefined') return; // non-DOM env (tests/SSR)
   const el = document.documentElement;
   el.lang = l;
   el.dir = l === 'ar' ? 'rtl' : 'ltr';

@@ -42,7 +42,7 @@ export interface CalendarEntry {
   day:         number;
   dayName:     string;
   week:        number;
-  pillar:      PillarName;
+  pillar:      string; // localized display label (logic uses the pillar object, not this)
   pillarColor: string;
   topic:       string;
   angle:       string;

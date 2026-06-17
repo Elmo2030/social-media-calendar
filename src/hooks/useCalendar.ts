@@ -2,6 +2,8 @@
 import { useTransition, useState, useEffect } from 'react';
 import type { Brand, CalendarEntry, PlatformCalendars, PlatformName, PillarName, Tone } from '../types/index.js';
 import { PLATFORM_DATA, CONTENT_PILLARS, DAYS, CALENDAR_DAYS } from '../data/constants.js';
+import { AR_TOPICS, AR_CTAS, AR_CAPTIONS, AR_LABEL } from '../data/content-ar.js';
+import { useLang, type Lang } from '../i18n.js';
 
 type TopicFn = (arg: string) => string[];
 
@@ -31,26 +33,32 @@ const CAPTIONS: Record<Tone, (t: string) => string> = {
   Authoritative: t => `Expert analysis: ${t}. Data-driven insights you can trust.`,
 };
 
-export const buildCalendar = (platform: PlatformName, brand: Pick<Brand,'industry'|'products'|'goals'|'tone'>): CalendarEntry[] => {
+export const buildCalendar = (platform: PlatformName, brand: Pick<Brand,'industry'|'products'|'goals'|'tone'>, lang: Lang = 'en'): CalendarEntry[] => {
   const { formats, angles } = PLATFORM_DATA[platform];
   const activeGoals = brand.goals.length > 0 ? brand.goals : ['Brand Awareness'];
+  const ar = lang === 'ar';
+  const topicSet   = ar ? AR_TOPICS   : TOPICS;
+  const ctaSet     = ar ? AR_CTAS     : CTAS;
+  const captionSet = ar ? AR_CAPTIONS : CAPTIONS;
+  // categorical label → Arabic display (logic keys below stay English)
+  const L = (s: string): string => ar ? (AR_LABEL[s] ?? s) : s;
+
   return Array.from({ length: CALENDAR_DAYS }, (_, idx): CalendarEntry => {
-    const i      = idx + 1;
-    const pillar = CONTENT_PILLARS[i % CONTENT_PILLARS.length];
-    const goal   = activeGoals[i % activeGoals.length];
-    const raw    = pillar.name === 'Product' ? brand.products : brand.industry;
-    const topicFn = TOPICS[pillar.name] ?? TOPICS.Education;
-    const topics  = topicFn(raw);
+    const i       = idx + 1;
+    const pillar  = CONTENT_PILLARS[i % CONTENT_PILLARS.length];
+    const goalKey = activeGoals[i % activeGoals.length];
+    const raw     = pillar.name === 'Product' ? brand.products : brand.industry;
+    const topics  = (topicSet[pillar.name] ?? topicSet.Education)(raw);
     const topic   = topics[i % topics.length];
-    const captionFn = CAPTIONS[brand.tone] ?? CAPTIONS.Professional;
+    const captionFn = captionSet[brand.tone] ?? captionSet.Professional;
     return {
-      day: i, dayName: DAYS[(i-1)%DAYS.length], week: Math.ceil(i/DAYS.length),
-      pillar: pillar.name, pillarColor: pillar.color,
-      topic, angle: angles[i % angles.length],
-      format: formats[i % formats.length],
+      day: i, dayName: L(DAYS[(i-1)%DAYS.length]), week: Math.ceil(i/DAYS.length),
+      pillar: L(pillar.name), pillarColor: pillar.color,
+      topic, angle: L(angles[i % angles.length]),
+      format: L(formats[i % formats.length]),
       caption: captionFn(topic),
-      cta: (CTAS[goal] ?? CTAS['Brand Awareness'])[i % 4],
-      goal,
+      cta: (ctaSet[goalKey] ?? ctaSet['Brand Awareness'])[i % 4],
+      goal: L(goalKey),
     };
   });
 };
@@ -62,6 +70,7 @@ interface UseCalendarReturn {
 
 export const useCalendar = (brand: Brand, showCalendar: boolean): UseCalendarReturn => {
   const { platforms, industry, products, goals, tone } = brand;
+  const lang = useLang();
   const [isComputing, startCompute] = useTransition();
   const [calendars, setCalendars]   = useState<PlatformCalendars>({});
 
@@ -69,11 +78,11 @@ export const useCalendar = (brand: Brand, showCalendar: boolean): UseCalendarRet
     startCompute(() => {
       setCalendars(
         showCalendar && platforms.length
-          ? Object.fromEntries(platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone })])) as PlatformCalendars
+          ? Object.fromEntries(platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone }, lang)])) as PlatformCalendars
           : {}
       );
     });
-  }, [showCalendar, platforms, industry, products, goals, tone]);
+  }, [showCalendar, platforms, industry, products, goals, tone, lang]);
 
   return { platformCalendars: calendars, isComputing };
 };

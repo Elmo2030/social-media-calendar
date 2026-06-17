@@ -30,4 +30,14 @@ describe('buildCalendar', () => {
     expect(cal[0].dayName).toBe('Monday');
     expect(cal[7].dayName).toBe('Monday'); // day 8 wraps
   });
+
+  it('produces Arabic content + labels when lang="ar"', () => {
+    const cal = buildCalendar('Instagram', base, 'ar');
+    expect(cal).toHaveLength(30);
+    expect(cal[0].dayName).toBe('الإثنين');           // weekday label localized
+    expect(cal.every(d => d.goal === 'مبيعات')).toBe(true); // goal label localized
+    // generated prose is Arabic, not the English template
+    expect(cal.some(d => /[؀-ۿ]/.test(d.topic))).toBe(true);
+    expect(cal.every(d => !/[a-z]/i.test(d.cta))).toBe(true);
+  });
 });
