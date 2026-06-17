@@ -22,6 +22,10 @@ export const PLATFORM_DATA: Record<PlatformName, PlatformConfig> = {
 export const CALENDAR_DAYS = 30; // days generated per platform
 export const PREVIEW_DAYS   = 7;  // rows shown in the in-app preview table
 
+// Custom Gemini Gem that expands the plan into full posts + image prompts.
+// See GEM-INSTRUCTIONS.md for the prompt this Gem is configured with.
+export const GEM_URL = 'https://gemini.google.com/gem/1e6wzO3IGxoYocmgWsKneXC-DZw7b2mXY?usp=sharing';
+
 export const INDUSTRIES:    string[]         = ['Real Estate','E-commerce','Healthcare','Education','Food and Beverage','Technology','Finance','Fashion','Automotive','Travel','Other'];
 export const TONES:         Tone[]           = ['Professional','Bold','Friendly','Educational','Luxurious','Playful','Authoritative'];
 export const GOAL_OPTIONS:  string[]         = ['Brand Awareness','Lead Generation','Sales','Authority','Community','Engagement'];

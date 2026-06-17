@@ -1,9 +1,9 @@
 // src/components/CalendarResults.tsx
 import { useState, useCallback, memo } from 'react';
-import { Download, Copy, Check, FileText, ShieldCheck, Zap, Layers, Loader2, AlertTriangle, X } from 'lucide-react';
+import { Download, Copy, Check, Sparkles, ExternalLink, ShieldCheck, Zap, Layers, Loader2, AlertTriangle, X } from 'lucide-react';
 import { PlatformPreviewCard } from './PlatformPreviewCard.js';
 import type { CalendarResultsProps, PlatformName } from '../types/index.js';
-import { CONTENT_PILLARS, CALENDAR_DAYS } from '../data/constants.js';
+import { CONTENT_PILLARS, CALENDAR_DAYS, GEM_URL } from '../data/constants.js';
 import { useT } from '../i18n.js';
 
 interface BadgeItem { Icon: React.ElementType; label: string; color: string; }
@@ -73,11 +73,15 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
           <StatCard label={t('Platforms')}   value={brand.platforms.length}/>
           <StatCard label={t('Pillars')}     value={CONTENT_PILLARS.length}/>
         </div>
-        <div className="bg-feedback-success/10 border border-feedback-success/30 rounded-lg p-4">
-          <p className="text-feedback-success text-sm flex items-center gap-2">
-            <FileText size={18} aria-hidden="true"/>
-            {t('Save as PDF opens your browser print dialog — choose "Save as PDF" as the destination.')}
+        <div className="bg-brand/10 border border-brand/40 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center gap-3">
+          <p className="text-brand-soft text-sm flex items-start gap-2 flex-1">
+            <Sparkles size={18} className="shrink-0 mt-0.5" aria-hidden="true"/>
+            {t('Press "Copy for AI", then open the AI to turn each day into a full post + image prompt.')}
           </p>
+          <a href={GEM_URL} target="_blank" rel="noopener noreferrer"
+            className="shrink-0 bg-brand hover:bg-brand-strong text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 transition-colors">
+            {t('Create detailed posts')} <ExternalLink size={16} aria-hidden="true"/>
+          </a>
         </div>
       </div>
 

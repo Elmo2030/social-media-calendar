@@ -62,6 +62,9 @@ const AR: Record<string, string> = {
   'Opened!': 'تم الفتح!',
   'Save as PDF opens your browser print dialog — choose "Save as PDF" as the destination.':
     'حفظ كـ PDF يفتح نافذة طباعة المتصفّح — اختر "حفظ كـ PDF" كوجهة.',
+  'Press "Copy for AI", then open the AI to turn each day into a full post + image prompt.':
+    'اضغط "نسخ للذكاء الاصطناعي"، ثم افتح الـAI لتحويل كل يوم إلى بوست كامل + برومبت صورة.',
+  'Create detailed posts': '✨ أنشئ البوستات التفصيلية',
   'Could not open the print dialog — try Copy HTML instead.':
     'تعذّر فتح نافذة الطباعة — جرّب نسخ HTML بدلاً منه.',
   'Download Premium Calendar': 'تحميل التقويم الكامل',
