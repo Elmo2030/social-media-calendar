@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0f172a 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #eadfed;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .platform-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .platform-card:active {
+            transform: scale(0.95);
+        }
+        /* Custom glow effects for selection */
+        .selected-facebook { border-color: #1877F2; box-shadow: 0 0 20px rgba(24, 119, 242, 0.4); background: rgba(24, 119, 242, 0.1); }
+        .selected-instagram { border-color: #E4405F; box-shadow: 0 0 20px rgba(228, 64, 95, 0.4); background: rgba(228, 64, 95, 0.1); }
+        .selected-linkedin { border-color: #0A66C2; box-shadow: 0 0 20px rgba(10, 102, 194, 0.4); background: rgba(10, 102, 194, 0.1); }
+        .selected-tiktok { border-color: #ffffff; box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.05); }
+        .selected-twitter { border-color: #1DA1F2; box-shadow: 0 0 20px rgba(29, 161, 242, 0.4); background: rgba(29, 161, 242, 0.1); }
+        .selected-snapchat { border-color: #FFFC00; box-shadow: 0 0 20px rgba(255, 252, 0, 0.4); background: rgba(255, 252, 0, 0.1); }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#3d3741",
+                        "on-secondary-container": "#ffbad3",
+                        "outline-variant": "#4d4354",
+                        "surface": "#16111b",
+                        "secondary": "#ffb0cd",
+                        "secondary-fixed-dim": "#ffb0cd",
+                        "surface-container-low": "#1f1a23",
+                        "surface-dim": "#16111b",
+                        "surface-tint": "#ddb7ff",
+                        "background": "#16111b",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#640039",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "primary": "#ddb7ff",
+                        "on-surface": "#eadfed",
+                        "surface-container-highest": "#39323d",
+                        "on-surface-variant": "#cfc2d6",
+                        "on-primary-fixed": "#2c0051",
+                        "on-background": "#eadfed",
+                        "surface-container-lowest": "#110c15",
+                        "tertiary-fixed-dim": "#fabc4e",
+                        "on-secondary-fixed-variant": "#8c0053",
+                        "inverse-primary": "#842bd2",
+                        "primary-container": "#b76dff",
+                        "primary-fixed": "#f0dbff",
+                        "on-primary": "#490080",
+                        "inverse-surface": "#eadfed",
+                        "on-secondary-fixed": "#3e0022",
+                        "tertiary": "#fabc4e",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed": "#281900",
+                        "on-primary-container": "#400071",
+                        "secondary-fixed": "#ffd9e4",
+                        "inverse-on-surface": "#342e38",
+                        "on-tertiary-container": "#3a2600",
+                        "on-tertiary": "#432c00",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#604100",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "secondary-container": "#aa0266",
+                        "on-error": "#690005",
+                        "surface-container": "#231e27",
+                        "tertiary-container": "#bd871a",
+                        "surface-variant": "#39323d",
+                        "surface-container-high": "#2e2832",
+                        "outline": "#988d9f",
+                        "tertiary-fixed": "#ffdead"
+                    },
+                    "spacing": {
+                        "xl": "48px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "margin-mobile": "16px",
+                        "container-max": "1280px",
+                        "gutter": "24px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-primary/30">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+<div class="flex justify-between items-center w-full px-lg py-md max-w-container-max mx-auto">
+<div class="text-headline-md font-headline-md font-extrabold text-primary dark:text-primary-fixed-dim tracking-tight">
+                Social Media Content Calendar Generator
+            </div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="account_circle">account_circle</span>
+<span class="material-symbols-outlined text-primary" data-icon="settings">settings</span>
+</div>
+</div>
+</header>
+<!-- Side Progress Nav (Desktop Only) -->
+<nav class="hidden lg:flex flex-col h-screen fixed left-0 top-0 pt-24 w-64 bg-surface-container/80 backdrop-blur-xl border-r border-white/10 shadow-xl z-40">
+<div class="px-md mb-xl">
+<h2 class="text-headline-md font-headline-md text-primary">Wizard Progress</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">3 Steps to Generate</p>
+</div>
+<ul class="space-y-sm">
+<li class="text-on-surface-variant hover:bg-surface-variant/50 rounded-lg mx-2 flex items-center gap-md p-md transition-all">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+<span class="text-label-md font-label-md">Brand Info</span>
+</li>
+<li class="bg-primary-container text-on-primary-container font-bold rounded-lg mx-2 flex items-center gap-md p-md scale-98 transition-all">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+<span class="text-label-md font-label-md">Platforms</span>
+</li>
+<li class="text-on-surface-variant hover:bg-surface-variant/50 rounded-lg mx-2 flex items-center gap-md p-md transition-all">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="text-label-md font-label-md">Calendar</span>
+</li>
+</ul>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col items-center justify-start pt-32 pb-xl px-margin-mobile lg:ml-64">
+<!-- Step Indicator -->
+<div class="w-full max-w-2xl mb-xl">
+<div class="flex items-center justify-between relative px-2">
+<!-- Progress Line -->
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-surface-container-highest -translate-y-1/2 -z-10"></div>
+<div class="absolute top-1/2 left-0 w-1/2 h-[2px] bg-primary -translate-y-1/2 -z-10"></div>
+<!-- Step 1: Done -->
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary ring-4 ring-background">
+<span class="material-symbols-outlined font-bold text-lg" data-icon="check">check</span>
+</div>
+<span class="text-label-sm font-label-sm mt-2 text-primary">Brand Info</span>
+</div>
+<!-- Step 2: Active -->
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary ring-4 ring-background ring-offset-2 ring-offset-primary/20">
+<span class="text-label-md font-label-md">2</span>
+</div>
+<span class="text-label-sm font-label-sm mt-2 text-on-surface">Platforms</span>
+</div>
+<!-- Step 3: Pending -->
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-outline ring-4 ring-background">
+<span class="text-label-md font-label-md">3</span>
+</div>
+<span class="text-label-sm font-label-sm mt-2 text-outline">Calendar</span>
+</div>
+</div>
+</div>
+<!-- Platform Selection Card -->
+<div class="w-full max-w-3xl glass-panel p-md md:p-xl rounded-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-lg gap-sm">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface">📣 Select Platforms</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">Which networks should we plan for?</p>
+</div>
+<div class="bg-surface-container-highest px-md py-xs rounded-full inline-flex items-center gap-xs">
+<span class="text-label-md font-label-md text-primary" id="selection-count">0</span>
+<span class="text-label-md font-label-md text-outline">of 6 selected</span>
+</div>
+</div>
+<!-- Platform Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-md">
+<!-- Facebook -->
+<button class="platform-card flex flex-col items-center justify-center gap-md p-lg glass-panel rounded-xl hover:bg-surface-bright/20 border-transparent" onclick="togglePlatform(this, 'facebook')">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#1877F2]/10">
+<span class="material-symbols-outlined text-4xl text-[#1877F2]" data-icon="facebook">face_nod</span>
+</div>
+<span class="text-label-md font-label-md">Facebook</span>
+</button>
+<!-- Instagram -->
+<button class="platform-card flex flex-col items-center justify-center gap-md p-lg glass-panel rounded-xl hover:bg-surface-bright/20 border-transparent" onclick="togglePlatform(this, 'instagram')">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#E4405F]/10">
+<span class="material-symbols-outlined text-4xl text-[#E4405F]" data-icon="camera">camera</span>
+</div>
+<span class="text-label-md font-label-md">Instagram</span>
+</button>
+<!-- LinkedIn -->
+<button class="platform-card flex flex-col items-center justify-center gap-md p-lg glass-panel rounded-xl hover:bg-surface-bright/20 border-transparent" onclick="togglePlatform(this, 'linkedin')">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#0A66C2]/10">
+<span class="material-symbols-outlined text-4xl text-[#0A66C2]" data-icon="work">work</span>
+</div>
+<span class="text-label-md font-label-md">LinkedIn</span>
+</button>
+<!-- TikTok -->
+<button class="platform-card flex flex-col items-center justify-center gap-md p-lg glass-panel rounded-xl hover:bg-surface-bright/20 border-transparent" onclick="togglePlatform(this, 'tiktok')">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-white/10">
+<span class="material-symbols-outlined text-4xl text-white" data-icon="music_note">music_note</span>
+</div>
+<span class="text-label-md font-label-md">TikTok</span>
+</button>
+<!-- Twitter -->
+<button class="platform-card flex flex-col items-center justify-center gap-md p-lg glass-panel rounded-xl hover:bg-surface-bright/20 border-transparent" onclick="togglePlatform(this, 'twitter')">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#1DA1F2]/10">
+<span class="material-symbols-outlined text-4xl text-[#1DA1F2]" data-icon="chat">chat</span>
+</div>
+<span class="text-label-md font-label-md">Twitter / X</span>
+</button>
+<!-- Snapchat -->
+<button class="platform-card flex flex-col items-center justify-center gap-md p-lg glass-panel rounded-xl hover:bg-surface-bright/20 border-transparent" onclick="togglePlatform(this, 'snapchat')">
+<div class="w-12 h-12 flex items-center justify-center rounded-lg bg-[#FFFC00]/10">
+<span class="material-symbols-outlined text-4xl text-[#FFFC00]" data-icon="photo_camera">photo_camera</span>
+</div>
+<span class="text-label-md font-label-md">Snapchat</span>
+</button>
+</div>
+<!-- Footer Controls -->
+<div class="mt-xl flex items-center justify-between pt-lg">
+<button class="flex items-center gap-xs px-lg py-md text-on-surface-variant hover:text-on-surface transition-colors font-label-md">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+                    Back
+                </button>
+<button class="bg-primary/20 text-on-surface/40 cursor-not-allowed px-xl py-md rounded-lg font-bold flex items-center gap-md transition-all duration-300" disabled="" id="next-btn">
+                    Generate Calendar
+                    <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Global Footer Shell -->
+<footer class="flex justify-between items-center w-full px-lg py-md max-w-container-max mx-auto mt-auto bg-transparent lg:ml-64">
+<span class="text-label-sm font-label-sm text-outline">© 2024 Social Media Content Calendar Generator. Powered by AI.</span>
+<div class="flex gap-md">
+<a class="text-label-sm font-label-sm text-outline hover:text-on-surface hover:underline decoration-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-on-surface hover:underline decoration-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-label-sm font-label-sm text-outline hover:text-on-surface hover:underline decoration-primary transition-colors" href="#">Help Center</a>
+</div>
+</footer>
+<script>
+        let selectedCount = 0;
+        const nextBtn = document.getElementById('next-btn');
+        const countDisplay = document.getElementById('selection-count');
+
+        function togglePlatform(element, platform) {
+            const isSelected = element.classList.contains(`selected-${platform}`);
+            
+            if (isSelected) {
+                element.classList.remove(`selected-${platform}`);
+                selectedCount--;
+            } else {
+                element.classList.add(`selected-${platform}`);
+                selectedCount++;
+            }
+
+            countDisplay.innerText = selectedCount;
+
+            // Update Next Button State
+            if (selectedCount > 0) {
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('bg-primary/20', 'text-on-surface/40', 'cursor-not-allowed');
+                nextBtn.classList.add('bg-primary', 'text-on-primary', 'hover:bg-[#7C3AED]', 'shadow-lg', 'shadow-primary/25');
+            } else {
+                nextBtn.disabled = true;
+                nextBtn.classList.add('bg-primary/20', 'text-on-surface/40', 'cursor-not-allowed');
+                nextBtn.classList.remove('bg-primary', 'text-on-primary', 'hover:bg-[#7C3AED]', 'shadow-lg', 'shadow-primary/25');
+            }
+        }
+    </script>
+</body></html>

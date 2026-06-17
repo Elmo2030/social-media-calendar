@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="light dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CreatorHub | Content Creation Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-tertiary-container": "#3a2600", "primary-fixed-dim": "#ddb7ff", "secondary-fixed": "#ffd9e4", "surface-container-highest": "#39323d", "tertiary-container": "#bd871a", "surface-tint": "#ddb7ff", background: "#16111b", "primary-fixed": "#f0dbff", outline: "#988d9f", "on-tertiary-fixed-variant": "#604100", secondary: "#ffb0cd", "on-secondary-fixed": "#3e0022", "on-secondary-container": "#ffbad3", "surface-dim": "#16111b", "on-secondary-fixed-variant": "#8c0053", "on-primary-fixed-variant": "#6900b3", "on-secondary": "#640039", "surface-container-lowest": "#110c15", "secondary-fixed-dim": "#ffb0cd", "surface-container": "#231e27", "secondary-container": "#aa0266", "on-primary-fixed": "#2c0051", "error-container": "#93000a", "tertiary-fixed": "#ffdead", "surface-bright": "#3d3741", tertiary: "#fabc4e", "on-error": "#690005", "on-primary": "#490080", "on-surface-variant": "#cfc2d6", "on-primary-container": "#400071", "surface-variant": "#39323d", primary: "#ddb7ff", "outline-variant": "#4d4354", "inverse-on-surface": "#342e38", "on-tertiary-fixed": "#281900", "inverse-surface": "#eadfed", "tertiary-fixed-dim": "#fabc4e", "on-surface": "#eadfed", "surface-container-low": "#1f1a23", "on-tertiary": "#432c00", error: "#ffb4ab", "on-background": "#eadfed", "inverse-primary": "#842bd2", "primary-container": "#b76dff", surface: "#16111b", "on-error-container": "#ffdad6", "surface-container-high": "#2e2832"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"container-padding-desktop": "24px", "stack-md": "12px", "container-padding-mobile": "16px", "stack-lg": "24px", gutter: "24px", base: "4px", "stack-sm": "4px", xs: "4px", "margin-mobile": "16px", xl: "48px", sm: "8px", lg: "24px", md: "16px", "container-max": "1280px"}, fontFamily: {"body-md": ["Inter"], "headline-xl": ["Inter"], "label-md": ["Inter"], "headline-xl-mobile": ["Inter"], "headline-lg": ["Inter"], "headline-md": ["Inter"], "body-lg": ["Inter"], "label-sm": ["Inter"], "display-lg": ["Inter"], "headline-lg-mobile": ["Inter"]}, fontSize: {"body-md": ["16px", {lineHeight: "1.6", fontWeight: "400"}], "headline-xl": ["32px", {lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700"}], "label-md": ["14px", {lineHeight: "1.4", fontWeight: "500"}], "headline-xl-mobile": ["28px", {lineHeight: "36px", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "800"}], "headline-md": ["24px", {lineHeight: "1.3", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "label-sm": ["12px", {lineHeight: "1.2", letterSpacing: "0.05em", fontWeight: "600"}], "display-lg": ["48px", {lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800"}], "headline-lg-mobile": ["28px", {lineHeight: "1.2", fontWeight: "800"}]}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen">
+<!-- Top AppBar (from Shared Components) -->
+<header class="bg-background dark:bg-background flex justify-between items-center w-full px-container-padding-mobile py-base docked full-width top-0 sticky z-50">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a creative individual in a bright, modern studio setting. The lighting is soft and flattering, highlighting a friendly expression. The background is a minimalist mix of clean white walls and subtle electric blue design accents, maintaining the brand's premium and high-velocity aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJSCtMHF9m3VHTt6pU3z87Xt9zVncvPGipTttkhbWlP-KkEcV9qEh1qoY4AHeU8snjemQCu5IjdsrD4UQrT9RmPmC3EPAuvCThKTRx7yGK2OjDxWT1jq2t3nmU4Az2Yp3GvT2Qzqiyo84DCSPwzhG-pVcpoqh7mkjnEseZxv7tsPc8ukTWKJKtgfe3sBF_32otr8Ze2efYauGGB0XxpE_BFH-jQKuAJrH_tAhTIj0iqS0ASeYM05pGpVyXvXNF8YsETDUAAQOOd-92"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">CreatorHub</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity duration-200">notifications</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-xl font-label-md text-label-md active:scale-95 transition-all">Preview</button>
+</div>
+</header>
+<main class="max-w-[1280px] mx-auto px-container-padding-mobile md:px-container-padding-desktop pb-32 pt-4">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-lg">
+<!-- Left Column: Primary Content Editor -->
+<div class="lg:col-span-8 space-y-stack-lg">
+<!-- Platform Selection -->
+<section class="bg-surface-container-lowest p-stack-lg rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.05)] border border-outline-variant">
+<h2 class="font-headline-md text-headline-md mb-4">Post Destinations</h2>
+<div class="flex flex-wrap gap-3">
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-primary bg-primary/10 text-primary font-label-md transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span> Instagram
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-outline-variant text-on-surface-variant font-label-md hover:border-primary/50 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">work</span> LinkedIn
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-outline-variant text-on-surface-variant font-label-md hover:border-primary/50 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">close</span> X (Twitter)
+                        </button>
+<button class="flex items-center gap-2 px-4 py-2 rounded-full border-2 border-outline-variant text-on-surface-variant font-label-md hover:border-primary/50 transition-all active:scale-95">
+<span class="material-symbols-outlined text-[18px]">groups</span> Facebook
+                        </button>
+</div>
+</section>
+<!-- Media Uploader (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.05)] border-2 border-dashed border-outline-variant flex flex-col items-center justify-center min-h-[300px] hover:border-primary transition-colors cursor-pointer group">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-[32px]">upload_file</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-surface mb-1">Upload Media</p>
+<p class="text-on-surface-variant text-center px-4">Drag and drop images or videos here, or click to browse files.</p>
+<p class="text-label-sm text-outline mt-4">MP4, JPG, PNG up to 50MB</p>
+</div>
+<div class="bg-surface-container-high rounded-xl overflow-hidden relative group">
+<img alt="Preview Placeholder" class="w-full h-full object-cover" data-alt="A bright and vibrant digital workspace setup with multiple monitors showing content planning tools and social media analytics. The desk is clean, featuring a sleek laptop and a cup of coffee, set in a modern home office with large windows. The overall aesthetic is professional, minimalist, and utilizes the electric blue and mint green color palette of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGC5HZcbwEFOxmYE9AVMTaVGuU1WsA_YZ1ykF4j7q46p1Ka-j8aldqWawR_f8tpwbQGviWrTTVAvj5QVB0pKuAXd_1em2wDWUsMQoWFnjgDncYzXqY4CxgtEonTrpSPj2tRsgr2RpNtUztb5Ks5LoNb-SOump45zDBsitQuD-5GU9iS1PjdvLR7diJ9F5r-9UHSV4ghxzuuk5vmiRiPxXy6A0ZbHvVNSuoVwFOMtnA60gFTjkd1o-OeXgTGG9jaX6wxIeZF8GMekKA"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="bg-error text-on-error p-3 rounded-full material-symbols-outlined">delete</button>
+</div>
+<div class="absolute top-4 left-4">
+<span class="bg-primary/90 text-on-primary px-3 py-1 rounded-full text-label-sm uppercase tracking-wider">Draft Preview</span>
+</div>
+</div>
+</section>
+<!-- Caption Area -->
+<section class="bg-surface-container-lowest p-stack-lg rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.05)] border border-outline-variant">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md text-headline-md">Caption</h2>
+<span class="text-label-md text-outline" id="charCount">0 / 2200</span>
+</div>
+<textarea class="w-full h-48 bg-surface-container-low border-outline-variant rounded-xl p-4 focus:ring-2 focus:ring-primary focus:border-transparent transition-all outline-none resize-none font-body-lg text-body-lg" id="captionText" placeholder="Write your creative caption here... Use #hashtags and @mentions to reach more people."></textarea>
+<div class="flex gap-4 mt-4">
+<button class="text-primary hover:bg-primary/5 px-3 py-1 rounded-lg transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">mood</span> Emojis
+                        </button>
+<button class="text-primary hover:bg-primary/5 px-3 py-1 rounded-lg transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">tag</span> Hashtags
+                        </button>
+<button class="text-primary hover:bg-primary/5 px-3 py-1 rounded-lg transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">location_on</span> Location
+                        </button>
+</div>
+</section>
+</div>
+<!-- Right Column: Settings & Actions -->
+<div class="lg:col-span-4 space-y-stack-lg">
+<!-- Scheduling Card -->
+<section class="bg-surface-container-lowest p-stack-lg rounded-xl shadow-[0px_2px_8px_rgba(0,0,0,0.05)] border border-outline-variant">
+<h2 class="font-headline-md text-headline-md mb-6">Publishing Options</h2>
+<div class="space-y-4">
+<label class="flex items-center justify-between p-4 rounded-xl border border-primary bg-primary/5 cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">send</span>
+<span class="font-label-md text-primary">Post Now</span>
+</div>
+<input checked="" class="text-primary focus:ring-primary w-5 h-5" name="publish_time" type="radio"/>
+</label>
+<label class="flex items-center justify-between p-4 rounded-xl border border-outline-variant hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-label-md">Schedule for Later</span>
+</div>
+<input class="text-primary focus:ring-primary w-5 h-5" name="publish_time" type="radio"/>
+</label>
+</div>
+<!-- Date/Time Picker (Conditional) -->
+<div class="mt-6 pt-6 border-t border-outline-variant space-y-4">
+<div>
+<label class="block text-label-sm text-outline mb-2">Publish Date</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-outline-variant rounded-xl p-3 focus:ring-primary text-body-md" type="date"/>
+</div>
+</div>
+<div>
+<label class="block text-label-sm text-outline mb-2">Publish Time (EST)</label>
+<div class="relative">
+<input class="w-full bg-surface-container-low border-outline-variant rounded-xl p-3 focus:ring-primary text-body-md" type="time"/>
+</div>
+</div>
+<div class="p-3 bg-secondary-container/20 rounded-lg flex gap-3">
+<span class="material-symbols-outlined text-secondary text-[18px]">info</span>
+<p class="text-label-sm text-on-secondary-container">Recommended: Tomorrow at 9:00 AM for highest engagement.</p>
+</div>
+</div>
+</section>
+<!-- AI Optimizer -->
+<section class="bg-gradient-to-br from-primary-container to-primary p-stack-lg rounded-xl text-on-primary shadow-lg relative overflow-hidden group">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<h3 class="font-label-md uppercase tracking-widest">AI Optimizer</h3>
+</div>
+<p class="text-headline-md font-bold mb-4">Improve Engagement</p>
+<button class="w-full py-3 bg-white/20 backdrop-blur-md rounded-xl font-label-md hover:bg-white/30 transition-colors border border-white/30">Analyze Draft</button>
+</div>
+<div class="absolute -right-8 -bottom-8 opacity-20 group-hover:rotate-12 transition-transform duration-700">
+<span class="material-symbols-outlined text-[160px]">smart_toy</span>
+</div>
+</section>
+<!-- Help/Guidelines -->
+<section class="bg-surface-container-low p-stack-lg rounded-xl border border-outline-variant/50">
+<h3 class="font-label-md text-outline mb-3">Checklist</h3>
+<ul class="space-y-3">
+<li class="flex items-center gap-2 text-label-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Media uploaded
+                        </li>
+<li class="flex items-center gap-2 text-label-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Platform selected
+                        </li>
+<li class="flex items-center gap-2 text-label-sm text-outline">
+<span class="material-symbols-outlined text-[18px]">radio_button_unchecked</span>
+                            Caption written (0/2200)
+                        </li>
+</ul>
+</section>
+</div>
+</div>
+</main>
+<!-- Bottom Actions Bar (Mobile Responsive Layout) -->
+<footer class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant/30 px-container-padding-mobile py-4 flex items-center justify-between z-[60] shadow-[0px_-4px_12px_rgba(0,0,0,0.05)] md:px-24">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">save</span>
+<span class="text-label-sm">Save Draft</span>
+</button>
+<div class="flex gap-4 items-center">
+<button class="hidden md:flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-primary text-primary font-label-md hover:bg-primary/5 active:scale-95 transition-all">
+                Preview Mobile
+            </button>
+<button class="px-10 py-3 bg-primary text-on-primary rounded-xl font-headline-md shadow-lg shadow-primary/30 active:scale-95 transition-all hover:opacity-90">
+                Schedule Post
+            </button>
+</div>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete_sweep</span>
+<span class="text-label-sm">Discard</span>
+</button>
+</footer>
+<!-- Bottom Nav Bar Shell (Mobile Only - Sync with JSON but for Editor Context) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest dark:bg-inverse-surface z-50 rounded-t-xl shadow-[0px_-2px_8px_rgba(0,0,0,0.05)] flex justify-around items-center px-2 pb-4 pt-2 hidden">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed bg-secondary-container/20 rounded-xl px-3 py-1 active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm">Create</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline active:scale-95 transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm">Analytics</span>
+</div>
+</nav>
+<script>
+        // Character counter logic
+        const textarea = document.getElementById('captionText');
+        const charCount = document.getElementById('charCount');
+
+        textarea.addEventListener('input', () => {
+            const length = textarea.value.length;
+            charCount.textContent = `${length} / 2200`;
+            
+            if (length > 2000) {
+                charCount.classList.add('text-error');
+            } else {
+                charCount.classList.remove('text-error');
+            }
+        });
+
+        // Toggle radio visual states (simulated)
+        const radios = document.querySelectorAll('input[name="publish_time"]');
+        radios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                radios.forEach(r => {
+                    const parent = r.closest('label');
+                    parent.classList.remove('border-primary', 'bg-primary/5');
+                    parent.classList.add('border-outline-variant');
+                    parent.querySelector('div').classList.remove('text-primary');
+                    parent.querySelector('div').classList.add('text-on-surface-variant');
+                    parent.querySelector('.material-symbols-outlined').classList.remove('text-primary');
+                });
+                
+                if (e.target.checked) {
+                    const activeParent = e.target.closest('label');
+                    activeParent.classList.add('border-primary', 'bg-primary/5');
+                    activeParent.classList.remove('border-outline-variant');
+                    activeParent.querySelector('div').classList.add('text-primary');
+                    activeParent.querySelector('div').classList.remove('text-on-surface-variant');
+                    activeParent.querySelector('.material-symbols-outlined').classList.add('text-primary');
+                }
+            });
+        });
+
+        // Simple preview micro-interaction
+        document.querySelector('button:contains("Analyze Draft")')?.addEventListener('click', function() {
+            this.textContent = 'Analyzing...';
+            setTimeout(() => {
+                this.textContent = 'Optimization Complete!';
+                this.classList.replace('bg-white/20', 'bg-secondary');
+            }, 1500);
+        });
+    </script>
+</body></html>

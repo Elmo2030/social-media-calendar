@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CreatorHub Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"on-tertiary-container": "#3a2600", "primary-fixed-dim": "#ddb7ff", "secondary-fixed": "#ffd9e4", "surface-container-highest": "#39323d", "tertiary-container": "#bd871a", "surface-tint": "#ddb7ff", background: "#16111b", "primary-fixed": "#f0dbff", outline: "#988d9f", "on-tertiary-fixed-variant": "#604100", secondary: "#ffb0cd", "on-secondary-fixed": "#3e0022", "on-secondary-container": "#ffbad3", "surface-dim": "#16111b", "on-secondary-fixed-variant": "#8c0053", "on-primary-fixed-variant": "#6900b3", "on-secondary": "#640039", "surface-container-lowest": "#110c15", "secondary-fixed-dim": "#ffb0cd", "surface-container": "#231e27", "secondary-container": "#aa0266", "on-primary-fixed": "#2c0051", "error-container": "#93000a", "tertiary-fixed": "#ffdead", "surface-bright": "#3d3741", tertiary: "#fabc4e", "on-error": "#690005", "on-primary": "#490080", "on-surface-variant": "#cfc2d6", "on-primary-container": "#400071", "surface-variant": "#39323d", primary: "#ddb7ff", "outline-variant": "#4d4354", "inverse-on-surface": "#342e38", "on-tertiary-fixed": "#281900", "inverse-surface": "#eadfed", "tertiary-fixed-dim": "#fabc4e", "on-surface": "#eadfed", "surface-container-low": "#1f1a23", "on-tertiary": "#432c00", error: "#ffb4ab", "on-background": "#eadfed", "inverse-primary": "#842bd2", "primary-container": "#b76dff", surface: "#16111b", "on-error-container": "#ffdad6", "surface-container-high": "#2e2832"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {"container-padding-desktop": "24px", "stack-md": "12px", "container-padding-mobile": "16px", "stack-lg": "24px", gutter: "24px", base: "4px", "stack-sm": "4px", xs: "4px", "margin-mobile": "16px", xl: "48px", sm: "8px", lg: "24px", md: "16px", "container-max": "1280px"}, fontFamily: {"body-md": ["Inter"], "headline-xl": ["Inter"], "label-md": ["Inter"], "headline-xl-mobile": ["Inter"], "headline-lg": ["Inter"], "headline-md": ["Inter"], "body-lg": ["Inter"], "label-sm": ["Inter"], "display-lg": ["Inter"], "headline-lg-mobile": ["Inter"]}, fontSize: {"body-md": ["16px", {lineHeight: "1.6", fontWeight: "400"}], "headline-xl": ["32px", {lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700"}], "label-md": ["14px", {lineHeight: "1.4", fontWeight: "500"}], "headline-xl-mobile": ["28px", {lineHeight: "36px", letterSpacing: "-0.02em", fontWeight: "700"}], "headline-lg": ["32px", {lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "800"}], "headline-md": ["24px", {lineHeight: "1.3", fontWeight: "700"}], "body-lg": ["18px", {lineHeight: "1.6", fontWeight: "400"}], "label-sm": ["12px", {lineHeight: "1.2", letterSpacing: "0.05em", fontWeight: "600"}], "display-lg": ["48px", {lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800"}], "headline-lg-mobile": ["28px", {lineHeight: "1.2", fontWeight: "800"}]}}}};</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        /* patched: leftover light fills from the Productivity-Flow system → dark glass (Lumina) */
+        .tonal-elevation-1 {
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .tonal-elevation-2 {
+            background-color: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar Shell -->
+<header class="bg-background dark:bg-background font-headline-md text-headline-md docked full-width top-0 z-50 sticky">
+<div class="flex justify-between items-center w-full px-container-padding-mobile py-base md:px-container-padding-desktop">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A high-quality professional portrait of a digital content creator in a brightly lit modern home office environment. The scene is clean and minimalist with soft neutral tones, reflecting a productive and creative atmosphere. High-key lighting creates a professional light-mode aesthetic with crisp focus on the subject." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxgJ6Khszg9TWtt8uswVTqd385yCQBVer96d-vMgvcWW8xs6SMjJpvrr84FX7BFA9Jd16pINCkADdYMgqX1QMYKQQMWVJCBFY8mwBPxZ6viZ257e4fpZrXJXeM6inUPZWSwZGlHLf-q3tccvZgpmNogcK-wFNIMSBZrbwDwK76tdj4WjPWabEHf1QeFwjF78rPd-CcXwKzHOwD-2mmsdu8sNA7FZjIGejkAEQ-AcPYDmj59tcqmLyS0FHby9w1ZcmOIXQBjWWmvFU-"/>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">CreatorHub</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-container-padding-mobile md:px-container-padding-desktop py-stack-lg space-y-stack-lg">
+<!-- Summary Stats Bento Grid -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+<div class="tonal-elevation-1 p-stack-md rounded-xl flex flex-col justify-between">
+<span class="text-on-surface-variant font-label-md text-label-md">Total Posts</span>
+<div class="mt-base flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg">128</span>
+<span class="text-secondary font-label-sm text-label-sm">+12%</span>
+</div>
+</div>
+<div class="tonal-elevation-1 p-stack-md rounded-xl flex flex-col justify-between">
+<span class="text-on-surface-variant font-label-md text-label-md">Upcoming</span>
+<div class="mt-base flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg">14</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Next 7 days</span>
+</div>
+</div>
+<div class="tonal-elevation-1 p-stack-md rounded-xl flex flex-col justify-between col-span-2 md:col-span-1">
+<span class="text-on-surface-variant font-label-md text-label-md">Engagement Rate</span>
+<div class="mt-base flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg">4.2%</span>
+<span class="text-secondary font-label-sm text-label-sm">▲ 0.8%</span>
+</div>
+</div>
+<div class="tonal-elevation-1 p-stack-md rounded-xl flex flex-col justify-between col-span-2 md:col-span-1">
+<span class="text-on-surface-variant font-label-md text-label-md">Best Platform</span>
+<div class="mt-base flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="photo_camera">photo_camera</span>
+<span class="font-headline-md text-headline-md">Instagram</span>
+</div>
+</div>
+</section>
+<!-- Main Content Area: Next to Post & Activity -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-lg">
+<!-- Left Column: Next to Post (Priority Card) -->
+<div class="md:col-span-7 lg:col-span-8 space-y-stack-lg">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-md text-headline-md">Next to Post</h2>
+<span class="font-label-md text-label-md text-primary">View Calendar</span>
+</div>
+<div class="tonal-elevation-1 rounded-xl overflow-hidden group">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A clean, minimalist flat lay of digital content creator tools like a modern smartphone, a tablet with a stylus, and a sleek coffee mug on a bright white marble desk. The lighting is soft and diffused, creating a professional and calm workspace aesthetic. Vibrant pops of electric blue and mint green are subtly integrated into the UI design shown on the device screens." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX0xFO2nQab4q1OCR3KQykDbo_JHQp1UfuZJYjan3W92vK8311n76KJAVwIhGfYXXsF4i4zKa9ix1zhELOfbeqQcY5cX3lYtlJNiJ56Pj1D5-P6QRYQlaI8NCdgta_a3IMqLqFNZcSJF0vbJKNzsa3C2zZT0g_tvGKPNY0LlJREtFxDgKZJU2d5B5K30IKegR8nLpKS_q5Vdkq6jzargxUeIrKetiH8Hx4NfYvPGv9YwaKXk8UkrW-tWlX55wqF3usTBkTHSIsm--G"/>
+<div class="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="schedule">schedule</span>
+<span class="font-label-md text-label-md text-on-surface">Today, 4:00 PM</span>
+</div>
+<div class="absolute bottom-4 right-4 bg-primary text-white p-3 rounded-xl shadow-lg">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</div>
+</div>
+<div class="p-stack-lg space-y-stack-md">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Scheduled</span>
+<span class="text-on-surface-variant font-label-md text-label-md">• Instagram Reel</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg">10 Productivity Hacks for Digital Creators 🚀</h3>
+<p class="text-on-surface-variant font-body-md text-body-md line-clamp-2">Sharing my top secrets on how to maintain a consistent posting schedule without burning out. This reel covers workflow optimization, batching techniques, and...</p>
+<div class="flex items-center justify-between pt-base">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container-highest flex items-center justify-center text-xs font-bold">IG</div>
+<div class="w-8 h-8 rounded-full border-2 border-white bg-surface-container-highest flex items-center justify-center text-xs font-bold">LI</div>
+</div>
+<button class="bg-primary text-white px-6 py-2 rounded-xl font-label-md text-label-md hover:bg-primary-container transition-colors">Edit Draft</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Recent Activity / Next 24 Hours -->
+<div class="md:col-span-5 lg:col-span-4 space-y-stack-lg">
+<h2 class="font-headline-md text-headline-md">Upcoming (24h)</h2>
+<div class="space-y-gutter">
+<!-- Feed Item 1 -->
+<div class="tonal-elevation-1 p-stack-md rounded-xl flex items-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline" data-icon="work">work</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-label-md text-label-md truncate">New Course Launch Promo</h4>
+<p class="text-on-surface-variant text-label-sm font-label-sm">Tomorrow, 9:00 AM • LinkedIn</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-amber-400"></div>
+</div>
+<!-- Feed Item 2 -->
+<div class="tonal-elevation-1 p-stack-md rounded-xl flex items-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline" data-icon="article">article</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-label-md text-label-md truncate">Weekly Newsletter Snippet</h4>
+<p class="text-on-surface-variant text-label-sm font-label-sm">Tomorrow, 2:00 PM • Multi-channel</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-amber-400"></div>
+</div>
+<!-- Feed Item 3 -->
+<div class="tonal-elevation-1 p-stack-md rounded-xl flex items-center gap-4 hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline" data-icon="bar_chart">bar_chart</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="font-label-md text-label-md truncate">Analytics Deep Dive</h4>
+<p class="text-on-surface-variant text-label-sm font-label-sm">Jul 22, 11:30 AM • Draft</p>
+</div>
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+</div>
+</div>
+<!-- Recent Activity Section -->
+<div class="pt-stack-lg space-y-stack-md">
+<h2 class="font-headline-md text-headline-md">Recent Activity</h2>
+<div class="space-y-4 border-l-2 border-surface-container-highest ml-3 pl-6">
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-secondary ring-4 ring-background"></div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">2 hours ago</p>
+<p class="text-body-md font-body-md">Post <span class="font-bold text-primary">"Summer Gear Guide"</span> went live on Instagram.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-primary-container ring-4 ring-background"></div>
+<p class="text-label-sm font-label-sm text-on-surface-variant">5 hours ago</p>
+<p class="text-body-md font-body-md">You scheduled <span class="font-bold">"Creative Burnout Tips"</span> for next Tuesday.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 md:bottom-8 md:right-8 w-14 h-14 bg-primary text-white rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined scale-125" data-icon="add">add</span>
+</button>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest dark:bg-inverse-surface flex justify-around items-center px-2 pb-4 pt-2 shadow-[0px_-2px_8px_rgba(0,0,0,0.05)] z-40 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-primary dark:text-secondary-fixed bg-secondary-container/20 rounded-xl px-3 py-1 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+<span class="font-label-sm text-label-sm mt-1">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-label-sm text-label-sm mt-1">Create</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-sm text-label-sm mt-1">Analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline hover:bg-surface-container-high transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-label-sm mt-1">Settings</span>
+</a>
+</nav>
+<!-- Desktop Navigation (Integrated in TopAppBar style for wide screens) -->
+<div class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-20 flex-col items-center py-stack-lg gap-stack-lg bg-surface-container-lowest border-r border-outline-variant/30">
+<a class="w-12 h-12 flex items-center justify-center rounded-xl bg-primary/10 text-primary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home" data-weight="fill" style="font-variation-settings: 'FILL' 1;">home</span>
+</a>
+<a class="w-12 h-12 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span>
+</a>
+<a class="w-12 h-12 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</a>
+<a class="w-12 h-12 flex items-center justify-center rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</a>
+</div>
+<script>
+        // Simple Micro-interactions
+        document.querySelectorAll('.tonal-elevation-1').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+                card.style.transition = 'transform 0.2s ease-out';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body></html>
