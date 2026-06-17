@@ -5,6 +5,7 @@ import type { Brand, PlatformCalendars } from '../types/index.js';
 import type { Lang } from '../i18n.js';
 
 type HtmlExportModule = { buildHTMLDocument: (b: Brand, c: PlatformCalendars, lang: Lang) => string };
+type MdExportModule   = { buildMarkdown: (b: Brand, c: PlatformCalendars, lang: Lang) => string };
 
 interface UseExportReturn {
   copied: boolean; downloaded: boolean; building: boolean; error: string | null;
@@ -20,6 +21,7 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
   const [error,    setError]    = useState<string | null>(null);
   const dismissError = useCallback(() => setError(null), []);
   const moduleRef = useRef<HtmlExportModule | null>(null);
+  const mdRef     = useRef<MdExportModule | null>(null);
 
   const getModule = useCallback(async (): Promise<HtmlExportModule> => {
     if (!moduleRef.current) moduleRef.current = await import('../utils/htmlExport.js') as HtmlExportModule;
@@ -30,6 +32,11 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
     const { buildHTMLDocument } = await getModule();
     return buildHTMLDocument(brand, platformCalendars, getLang());
   }, [brand, platformCalendars, getModule]);
+
+  const buildMd = useCallback(async (): Promise<string> => {
+    if (!mdRef.current) mdRef.current = await import('../utils/markdownExport.js') as MdExportModule;
+    return mdRef.current.buildMarkdown(brand, platformCalendars, getLang());
+  }, [brand, platformCalendars]);
 
   // Render the styled document in a hidden iframe and open the print dialog —
   // the user picks "Save as PDF". Browser handles Arabic/RTL shaping perfectly,
@@ -58,15 +65,16 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
     finally  { setBuilding(false); }
   }, [buildDoc]);
 
+  // Copy the AI-friendly Markdown brief — paste it into your custom Gem/GPT.
   const handleCopy = useCallback(async (): Promise<void> => {
     try {
       setBuilding(true); setError(null);
-      await navigator.clipboard.writeText(await buildDoc());
+      await navigator.clipboard.writeText(await buildMd());
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch { setError('Clipboard unavailable — your browser may block it on this page.'); }
     finally  { setBuilding(false); }
-  }, [buildDoc]);
+  }, [buildMd]);
 
   // Warm the export module once the calendar is ready, so the first
   // download/copy doesn't pay the dynamic-import latency.

@@ -56,10 +56,10 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
             <p className="text-brand-soft text-sm">{t('Content Calendar Ready')}</p>
           </div>
           <div className="flex gap-2">
-            <button onClick={onCopy} disabled={building} aria-label={t(copied?'Copied!':'Copy HTML')}
+            <button onClick={onCopy} disabled={building} aria-label={t(copied?'Copied!':'Copy for AI')}
               className="bg-surface-hover hover:bg-surface-muted disabled:opacity-60 text-white px-3 py-2 rounded-lg text-sm flex items-center gap-1 transition-colors">
               {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:copied?<Check size={16} aria-hidden="true"/>:<Copy size={16} aria-hidden="true"/>}
-              {t(building?'Building…':copied?'Copied!':'Copy HTML')}
+              {t(building?'Building…':copied?'Copied!':'Copy for AI')}
             </button>
             <button onClick={onDownload} disabled={building} aria-label={t('Save as PDF')}
               className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-surface-base px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-semibold transition-colors">

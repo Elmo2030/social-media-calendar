@@ -51,6 +51,7 @@ const AR: Record<string, string> = {
   // step 3 — results
   'Content Calendar Ready': 'تقويم المحتوى جاهز',
   'Copy HTML': 'نسخ HTML',
+  'Copy for AI': 'نسخ للذكاء الاصطناعي',
   'Copied!': 'تم النسخ!',
   'Building…': 'جارٍ البناء…',
   'Building HTML…': 'جارٍ بناء HTML…',
