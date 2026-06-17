@@ -2,6 +2,14 @@
 
 > v2.0 — Refactored Architecture
 
+## Run as a Claude artifact
+
+`npm run build:artifact` inlines the whole app (JS + CSS + design tokens) into a
+single self-contained **`artifact.html`**. Open the file in any browser, or paste
+its contents into Claude as an HTML artifact — no build step, no external files.
+(In the sandbox, `localStorage` persistence and the print-to-PDF dialog may be
+limited; the app degrades gracefully and the AI/Gem link still works.)
+
 ## Stack
 - React 18 + Vite 5
 - Tailwind CSS 3

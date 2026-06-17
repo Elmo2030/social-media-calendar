@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:artifact": "ARTIFACT=1 vite build && cp dist/index.html artifact.html",
     "preview": "vite preview",
     "lint": "eslint src --max-warnings 0",
     "format": "prettier --write src",
@@ -33,6 +34,7 @@
     "tailwindcss": "^3.4.0",
     "typescript": "^5.9.3",
     "vite": "^5.0.0",
+    "vite-plugin-singlefile": "^2.3.3",
     "vitest": "^4.1.9"
   }
 }
