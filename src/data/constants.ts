@@ -2,8 +2,8 @@
 import type { ContentPillar, PlatformConfig, PlatformName, Tone, Brand } from '../types/index.js';
 
 export const CONTENT_PILLARS: ContentPillar[] = [
-  { name: 'Education',     desc: 'Teach your audience something valuable',          weight: 25, color: '#3B82F6' },
-  { name: 'Authority',     desc: 'Position the brand as an industry leader',        weight: 20, color: '#8B5CF6' },
+  { name: 'Education',     desc: 'Teach your audience something valuable',          weight: 25, color: '#2563EB' },
+  { name: 'Authority',     desc: 'Position the brand as an industry leader',        weight: 20, color: '#7C3AED' },
   { name: 'Product',       desc: 'Highlight products/services with focus on value', weight: 20, color: '#10B981' },
   { name: 'Engagement',    desc: 'Drive interaction through questions',              weight: 15, color: '#F59E0B' },
   { name: 'Social Proof',  desc: 'Build trust through testimonials and results',    weight: 10, color: '#EF4444' },

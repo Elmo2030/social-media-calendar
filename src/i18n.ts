@@ -19,6 +19,7 @@ const AR: Record<string, string> = {
   'Progress steps': 'خطوات التقدّم',
   'Calendar results': 'نتائج التقويم',
   'العربية': 'English',
+  'Switch language': 'تبديل اللغة',
   // step 1 — brand form
   '🏢 Brand Information': '🏢 بيانات البراند',
   'Brand Name *': 'اسم البراند *',

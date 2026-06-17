@@ -1,5 +1,6 @@
 // src/utils/htmlExport.ts — Pure function, typed, safe to dynamic import
 import { sanitize } from './sanitize.js';
+import { textOn } from './contrast.js';
 import { PLATFORM_DATA, CALENDAR_DAYS } from '../data/constants.js';
 import type { Brand, PlatformCalendars, CalendarEntry, PlatformName } from '../types/index.js';
 import type { Lang } from '../i18n.js'; // type-only: no runtime/React import pulled in
@@ -35,7 +36,7 @@ export const buildHTMLDocument = (brand: Brand, platformCalendars: PlatformCalen
     const rows   = cal.map((d: CalendarEntry, idx: number) => `
       <tr class="${idx % 2 === 0 ? 'even' : 'odd'}">
         <td><strong>${C.day} ${d.day}</strong><br/><small>${s(d.dayName)}</small></td>
-        <td><span class="badge" style="background:${d.pillarColor}">${s(d.pillar)}</span></td>
+        <td><span class="badge" style="background:${d.pillarColor};color:${textOn(d.pillarColor)}">${s(d.pillar)}</span></td>
         <td>${s(d.topic)}</td><td>${s(d.angle)}</td>
         <td><span class="fmt">${s(d.format)}</span></td>
         <td><em>${s(d.caption)}</em></td>

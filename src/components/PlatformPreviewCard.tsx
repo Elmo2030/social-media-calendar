@@ -3,6 +3,7 @@ import { memo, useCallback } from 'react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import type { PlatformPreviewCardProps } from '../types/index.js';
 import { PLATFORM_DATA, CALENDAR_DAYS, PREVIEW_DAYS } from '../data/constants.js';
+import { textOn } from '../utils/contrast.js';
 import { useT } from '../i18n.js';
 
 export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggle }: PlatformPreviewCardProps) => {
@@ -19,7 +20,7 @@ export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggl
         style={{ background: hdrBg + '33' }}>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full" style={{ background: color }} aria-hidden="true"/>
-          <span className="font-bold text-white">{platform}</span>
+          <h3 className="font-bold text-white">{platform}</h3>
           <span className="text-content-muted text-xs">{t('{n} posts ready', { n: CALENDAR_DAYS })}</span>
         </div>
         {expanded ? <ChevronDown className="text-white" size={18}/> : <ChevronRight className="text-white" size={18}/>}
@@ -38,7 +39,7 @@ export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggl
               {preview.map(d=>(
                 <tr key={d.day} className="border-b border-surface-raised/50 hover:bg-surface-raised/20">
                   <td className="p-2 text-white font-medium">{d.day}</td>
-                  <td className="p-2"><span className="px-2 py-0.5 rounded-full text-white text-xs" style={{background:d.pillarColor}}>{d.pillar}</span></td>
+                  <td className="p-2"><span className="px-2 py-0.5 rounded-full text-xs font-semibold" style={{background:d.pillarColor,color:textOn(d.pillarColor)}}>{d.pillar}</span></td>
                   <td className="p-2 text-content max-w-xs">{d.topic.length>45?d.topic.slice(0,45)+'…':d.topic}</td>
                   <td className="p-2 text-content-muted">{d.format}</td>
                   <td className="p-2 text-feedback-success">{d.goal}</td>

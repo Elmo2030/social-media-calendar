@@ -23,7 +23,7 @@ const StepIndicator = memo(({ step, isPending }: StepIndicatorProps) => {
           <span key={n} className="flex items-center gap-2">
             <div className={[
               'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all',
-              step >= n ? 'bg-brand text-white' : 'bg-surface-raised text-content-muted',
+              step >= n ? 'bg-brand text-white' : 'bg-surface-raised text-content',
               step === n && isPending ? 'animate-pulse ring-2 ring-brand-light ring-offset-2 ring-offset-surface-base' : '',
             ].join(' ')}
             aria-current={step === n ? 'step' : undefined}>{n}</div>
@@ -66,7 +66,7 @@ export default function App() {
     <div className="min-h-screen bg-gradient-to-br from-surface-base via-brand-deep to-surface-base p-4">
       <div className="max-w-5xl mx-auto relative">
         <button onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-          aria-label="Switch language" lang={lang === 'ar' ? 'en' : 'ar'}
+          aria-label={t('Switch language')} lang={lang === 'ar' ? 'en' : 'ar'}
           className="absolute top-0 end-0 z-10 text-xs font-medium px-3 py-1.5 rounded-lg bg-surface-card/80 text-content border border-surface-hover hover:bg-surface-raised transition-colors backdrop-blur">
           {t('العربية')}
         </button>

@@ -62,7 +62,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
               {t(building?'Building…':copied?'Copied!':'Copy HTML')}
             </button>
             <button onClick={onDownload} disabled={building} aria-label={t('Download')}
-              className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-medium transition-colors">
+              className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-surface-base px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-semibold transition-colors">
               {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:downloaded?<Check size={16} aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
               {t(building?'Building…':downloaded?'Downloaded!':'Download')}
             </button>
@@ -94,7 +94,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
           {t('New Calendar')}
         </button>
         <button onClick={onDownload} disabled={building} aria-label={t('Download Premium Calendar')}
-          className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 flex-1 justify-center font-medium transition-colors">
+          className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-surface-base px-4 py-2 rounded-lg text-sm flex items-center gap-2 flex-1 justify-center font-semibold transition-colors">
           {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:downloaded?<Check size={16} aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
           {t(building?'Building HTML…':downloaded?'Downloaded!':'Download Premium Calendar')}
         </button>
