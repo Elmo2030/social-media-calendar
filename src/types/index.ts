@@ -15,20 +15,14 @@ export type Tone =
   | 'Educational'  | 'Luxurious'    | 'Playful'
   | 'Authoritative';
 
-export type BusinessModel = 'B2C' | 'B2B' | 'Hybrid';
-
 // ── Core data shapes ─────────────────────────────────────────────────────────
 export interface Brand {
-  name:            string;
-  industry:        string;
-  country:         string;
-  businessModel:   BusinessModel;
-  goals:           string[];
-  audience:        string;
-  tone:            Tone;
-  products:        string;
-  differentiation: string;
-  platforms:       PlatformName[];
+  name:      string;
+  industry:  string;
+  goals:     string[];
+  tone:      Tone;
+  products:  string;
+  platforms: PlatformName[];
 }
 
 export interface ContentPillar {

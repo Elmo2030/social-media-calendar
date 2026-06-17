@@ -1,5 +1,5 @@
 // src/data/constants.ts
-import type { ContentPillar, PlatformConfig, PlatformName, Tone, Brand, BusinessModel } from '../types/index.js';
+import type { ContentPillar, PlatformConfig, PlatformName, Tone, Brand } from '../types/index.js';
 
 export const CONTENT_PILLARS: ContentPillar[] = [
   { name: 'Education',     desc: 'Teach your audience something valuable',          weight: 25, color: '#3B82F6' },
@@ -29,8 +29,8 @@ export const ALL_PLATFORMS: PlatformName[]   = ['Facebook','Instagram','LinkedIn
 export const DAYS:          string[]         = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
 export const INITIAL_BRAND: Brand = {
-  name: '', industry: '', country: '', businessModel: 'B2C' as BusinessModel,
-  goals: [], audience: '', tone: 'Professional' as Tone,
-  products: '', differentiation: '',
+  name: '', industry: '',
+  goals: [], tone: 'Professional',
+  products: '',
   platforms: [...ALL_PLATFORMS],
 };

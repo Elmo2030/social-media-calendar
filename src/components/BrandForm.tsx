@@ -27,8 +27,6 @@ export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNe
         <FormSelect label="Industry *" value={brand.industry} onChange={v => updateBrand('industry', v)}
           error={touched.industry ? industryError : ''} onBlur={() => touch('industry')}
           options={[{ value: '', label: 'Select industry' }, ...INDUSTRIES]}/>
-        <FormField label="Country / Market" value={brand.country} onChange={v => updateBrand('country', v)} placeholder="e.g. Libya, Saudi Arabia"/>
-        <FormSelect label="Business Model" value={brand.businessModel} onChange={v => updateBrand('businessModel', v)} options={['B2C','B2B','Hybrid']}/>
         <FormSelect label="Brand Tone" value={brand.tone} onChange={v => updateBrand('tone', v)} options={TONES}/>
         <div>
           <label className="block text-brand-softer mb-1 text-xs">Monthly Goals</label>
@@ -38,9 +36,7 @@ export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNe
             ))}
           </div>
         </div>
-        <FormField label="Target Audience" value={brand.audience} onChange={v => updateBrand('audience', v)} placeholder="Describe target audience" colSpan="md:col-span-2"/>
-        <FormField label="Key Products / Services" value={brand.products} onChange={v => updateBrand('products', v)} placeholder="Main offerings"/>
-        <FormField label="Differentiation" value={brand.differentiation} onChange={v => updateBrand('differentiation', v)} placeholder="What makes you unique"/>
+        <FormField label="Key Products / Services" value={brand.products} onChange={v => updateBrand('products', v)} placeholder="Main offerings" colSpan="md:col-span-2"/>
       </div>
       <div className="mt-4 flex justify-end">
         <button onClick={handleNext} onMouseEnter={onNextHover} aria-disabled={!canProceed}
