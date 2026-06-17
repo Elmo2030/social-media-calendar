@@ -2,7 +2,8 @@
 import { memo } from 'react';
 import type { FormFieldProps, FormSelectProps, TogglePillProps, FormSelectOption } from '../types/index.js';
 
-const slug = (s: string) => s.replace(/\W+/g, '-').toLowerCase();
+// unicode-aware so Arabic labels still yield unique, valid ids (not all-dashes)
+const slug = (s: string) => s.replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '').toLowerCase();
 // border tokens swap to feedback-error when the field carries a validation message
 const borderClass = (error?: string) =>
   error ? 'border-feedback-error focus:border-feedback-error' : 'border-surface-hover focus:border-brand';

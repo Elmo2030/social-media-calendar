@@ -3,8 +3,10 @@ import { memo, useCallback } from 'react';
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import type { PlatformPreviewCardProps } from '../types/index.js';
 import { PLATFORM_DATA, CALENDAR_DAYS, PREVIEW_DAYS } from '../data/constants.js';
+import { useT } from '../i18n.js';
 
 export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggle }: PlatformPreviewCardProps) => {
+  const t       = useT();
   const color   = PLATFORM_DATA[platform].color;
   const hdrBg   = color === '#FFFC00' ? '#333' : color;
   const preview = calendar?.slice(0, PREVIEW_DAYS) ?? [];
@@ -18,17 +20,17 @@ export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggl
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full" style={{ background: color }} aria-hidden="true"/>
           <span className="font-bold text-white">{platform}</span>
-          <span className="text-content-muted text-xs">{CALENDAR_DAYS} posts ready</span>
+          <span className="text-content-muted text-xs">{t('{n} posts ready', { n: CALENDAR_DAYS })}</span>
         </div>
         {expanded ? <ChevronDown className="text-white" size={18}/> : <ChevronRight className="text-white" size={18}/>}
       </button>
       {expanded && (
-        <div className="p-3 overflow-x-auto" role="region" aria-label={`${platform} calendar preview`}>
+        <div className="p-3 overflow-x-auto" role="region" aria-label={`${platform} ${t('Calendar')}`}>
           <table className="w-full text-xs">
             <thead>
-              <tr className="bg-surface-raised/50 text-left">
+              <tr className="bg-surface-raised/50 text-start">
                 {['Day','Pillar','Topic','Format','Goal'].map(h=>(
-                  <th key={h} className="p-2 text-brand-softer font-semibold" scope="col">{h}</th>
+                  <th key={h} className="p-2 text-brand-softer font-semibold" scope="col">{t(h)}</th>
                 ))}
               </tr>
             </thead>
@@ -44,7 +46,7 @@ export const PlatformPreviewCard = memo(({ platform, calendar, expanded, onToggl
               ))}
             </tbody>
           </table>
-          <p className="text-content-faint text-xs mt-2 text-center">Preview: first {PREVIEW_DAYS} days — all {CALENDAR_DAYS} in downloaded file</p>
+          <p className="text-content-faint text-xs mt-2 text-center">{t('Preview: first {p} days — all {n} in downloaded file', { p: PREVIEW_DAYS, n: CALENDAR_DAYS })}</p>
         </div>
       )}
     </div>
