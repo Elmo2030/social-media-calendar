@@ -2,10 +2,29 @@
 import { useTransition, useState, useEffect } from 'react';
 import type { Brand, CalendarEntry, PlatformCalendars, PlatformName, PillarName, Tone } from '../types/index.js';
 import { PLATFORM_DATA, CONTENT_PILLARS, DAYS, CALENDAR_DAYS } from '../data/constants.js';
-import { AR_TOPICS, AR_CTAS, AR_CAPTIONS, AR_LABEL } from '../data/content-ar.js';
+import { AR_TOPICS, AR_CTAS, AR_CAPTIONS, AR_LABEL, AR_FOCUS, AR_DIFF } from '../data/content-ar.js';
 import { useLang, type Lang } from '../i18n.js';
 
 type TopicFn = (arg: string) => string[];
+
+// Seeded PRNG so a plan is deterministic per (brand + platform) — stable for memo
+// and tests — yet varies across inputs and platforms. ponytail: mulberry32, swap
+// for AI generation when content quality outgrows templates (see ADR-001).
+const hashStr = (s: string): number => {
+  let h = 2166136261;
+  for (let k = 0; k < s.length; k++) { h ^= s.charCodeAt(k); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+};
+const mulberry32 = (seed: number) => (): number => {
+  seed = (seed + 0x6d2b79f5) | 0;
+  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+
+// monthly-focus & differentiator phrasings (EN; AR parallels in content-ar.ts)
+const EN_FOCUS = (f: string): string[] => [`Spotlight: ${f}`, `Why ${f} matters right now`, `${f} — what you need to know`, `Behind the scenes of ${f}`, `Get ready for ${f}`];
+const EN_DIFF  = (d: string): string => `What sets us apart: ${d}`;
 
 const TOPICS: Record<PillarName, TopicFn> = {
   Education:       ind  => [`How to choose the right ${ind} solution`,`Common ${ind} mistakes to avoid`,`Beginner guide to ${ind}`,`Key factors before investing in ${ind}`,`${ind} trends shaping 2025`],
@@ -33,31 +52,45 @@ const CAPTIONS: Record<Tone, (t: string) => string> = {
   Authoritative: t => `Expert analysis: ${t}. Data-driven insights you can trust.`,
 };
 
-export const buildCalendar = (platform: PlatformName, brand: Pick<Brand,'industry'|'products'|'goals'|'tone'>, lang: Lang = 'en'): CalendarEntry[] => {
+type GenBrand = Pick<Brand, 'industry' | 'products' | 'goals' | 'tone' | 'differentiation' | 'monthlyFocus'>;
+
+export const buildCalendar = (platform: PlatformName, brand: GenBrand, lang: Lang = 'en'): CalendarEntry[] => {
   const { formats, angles } = PLATFORM_DATA[platform];
   const activeGoals = brand.goals.length > 0 ? brand.goals : ['Brand Awareness'];
   const ar = lang === 'ar';
   const topicSet   = ar ? AR_TOPICS   : TOPICS;
   const ctaSet     = ar ? AR_CTAS     : CTAS;
   const captionSet = ar ? AR_CAPTIONS : CAPTIONS;
+  const focusSet   = ar ? AR_FOCUS    : EN_FOCUS;
+  const diffFn     = ar ? AR_DIFF     : EN_DIFF;
   // categorical label → Arabic display (logic keys below stay English)
   const L = (s: string): string => ar ? (AR_LABEL[s] ?? s) : s;
 
+  const focus = (brand.monthlyFocus ?? '').trim();
+  const diff  = (brand.differentiation ?? '').trim();
+  // distinct, non-rigid plan per brand + platform; reshuffles when any input changes
+  const rand = mulberry32(hashStr([platform, brand.industry, brand.products, brand.tone, focus, diff, activeGoals.join(',')].join('|')));
+  const pick = <T,>(arr: T[]): T => arr[Math.floor(rand() * arr.length)];
+  const pillarOffset = Math.floor(rand() * CONTENT_PILLARS.length);
+
   return Array.from({ length: CALENDAR_DAYS }, (_, idx): CalendarEntry => {
     const i       = idx + 1;
-    const pillar  = CONTENT_PILLARS[i % CONTENT_PILLARS.length];
-    const goalKey = activeGoals[i % activeGoals.length];
-    const raw     = pillar.name === 'Product' ? brand.products : brand.industry;
-    const topics  = (topicSet[pillar.name] ?? topicSet.Education)(raw);
-    const topic   = topics[i % topics.length];
+    const pillar  = CONTENT_PILLARS[(idx + pillarOffset) % CONTENT_PILLARS.length];
+    const goalKey = activeGoals[idx % activeGoals.length];
+    const raw     = pillar.name === 'Product' ? (brand.products || brand.industry) : brand.industry;
+
+    let topic = pick((topicSet[pillar.name] ?? topicSet.Education)(raw));
+    if (focus && rand() < 0.2) topic = pick(focusSet(focus));                                   // tie ~1 day/week to the monthly focus
+    else if (diff && (pillar.name === 'Authority' || pillar.name === 'Product') && rand() < 0.4) topic = diffFn(diff); // weave in the differentiator
+
     const captionFn = captionSet[brand.tone] ?? captionSet.Professional;
     return {
       day: i, dayName: L(DAYS[(i-1)%DAYS.length]), week: Math.ceil(i/DAYS.length),
       pillar: L(pillar.name), pillarColor: pillar.color,
-      topic, angle: L(angles[i % angles.length]),
-      format: L(formats[i % formats.length]),
+      topic, angle: L(pick(angles)),
+      format: L(pick(formats)),
       caption: captionFn(topic),
-      cta: (ctaSet[goalKey] ?? ctaSet['Brand Awareness'])[i % 4],
+      cta: pick(ctaSet[goalKey] ?? ctaSet['Brand Awareness']),
       goal: L(goalKey),
     };
   });
@@ -69,7 +102,7 @@ interface UseCalendarReturn {
 }
 
 export const useCalendar = (brand: Brand, showCalendar: boolean): UseCalendarReturn => {
-  const { platforms, industry, products, goals, tone } = brand;
+  const { platforms, industry, products, goals, tone, differentiation, monthlyFocus } = brand;
   const lang = useLang();
   const [isComputing, startCompute] = useTransition();
   const [calendars, setCalendars]   = useState<PlatformCalendars>({});
@@ -78,11 +111,11 @@ export const useCalendar = (brand: Brand, showCalendar: boolean): UseCalendarRet
     startCompute(() => {
       setCalendars(
         showCalendar && platforms.length
-          ? Object.fromEntries(platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone }, lang)])) as PlatformCalendars
+          ? Object.fromEntries(platforms.map(p => [p, buildCalendar(p, { industry, products, goals, tone, differentiation, monthlyFocus }, lang)])) as PlatformCalendars
           : {}
       );
     });
-  }, [showCalendar, platforms, industry, products, goals, tone, lang]);
+  }, [showCalendar, platforms, industry, products, goals, tone, differentiation, monthlyFocus, lang]);
 
   return { platformCalendars: calendars, isComputing };
 };

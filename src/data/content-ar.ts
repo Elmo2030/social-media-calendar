@@ -56,6 +56,10 @@ export const AR_CTAS: Record<string, string[]> = {
   Engagement:        [`اكتب إجابتك بالأسفل`,`اضغط ضغطتين إن وافقت`,`شاركنا تجربتك`,`صوّت في قصصنا`],
 };
 
+// monthly-focus & differentiator phrasings (Arabic parallels to EN_FOCUS / EN_DIFF)
+export const AR_FOCUS = (f: string): string[] => [`تسليط الضوء: ${f}`, `لماذا ${f} الآن`, `${f} — ما تحتاج معرفته`, `كواليس ${f}`, `استعدّ لـ${f}`];
+export const AR_DIFF  = (d: string): string => `ما يميّزنا: ${d}`;
+
 export const AR_CAPTIONS: Record<Tone, (t: string) => string> = {
   Professional:  t => `رؤية في المجال: ${t}. أهم النقاط لصنّاع القرار بالداخل.`,
   Bold:          t => `حقيقة صادمة: ${t}. إليك ما لا يخبرك به أحد.`,

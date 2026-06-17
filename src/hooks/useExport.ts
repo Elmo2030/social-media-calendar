@@ -1,6 +1,5 @@
 // src/hooks/useExport.ts
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { sanitize } from '../utils/sanitize.js';
 import { getLang } from '../i18n.js';
 import type { Brand, PlatformCalendars } from '../types/index.js';
 import type { Lang } from '../i18n.js';
@@ -32,22 +31,32 @@ export const useExport = (brand: Brand, platformCalendars: PlatformCalendars, sh
     return buildHTMLDocument(brand, platformCalendars, getLang());
   }, [brand, platformCalendars, getModule]);
 
+  // Render the styled document in a hidden iframe and open the print dialog —
+  // the user picks "Save as PDF". Browser handles Arabic/RTL shaping perfectly,
+  // no PDF library needed. ponytail: hidden-iframe print, swap for a real PDF
+  // lib only if a direct .pdf download (no dialog) becomes a hard requirement.
   const handleDownload = useCallback(async (): Promise<void> => {
     try {
       setBuilding(true); setError(null);
       const html = await buildDoc();
-      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-      const url  = URL.createObjectURL(blob);
-      const a    = Object.assign(document.createElement('a'), {
-        href: url, download: `${sanitize(brand.name).replace(/\s+/g,'_')||'calendar'}_Content_Calendar.html`,
-      });
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      const frame = document.createElement('iframe');
+      frame.setAttribute('aria-hidden', 'true');
+      frame.style.cssText = 'position:fixed;width:0;height:0;border:0;right:0;bottom:0;';
+      document.body.appendChild(frame);
+      const doc = frame.contentWindow?.document;
+      if (!doc || !frame.contentWindow) throw new Error('print unavailable');
+      const win = frame.contentWindow;
+      const cleanup = () => { if (frame.parentNode) document.body.removeChild(frame); };
+      win.addEventListener('afterprint', cleanup);
+      doc.open(); doc.write(html); doc.close();
+      await new Promise(r => setTimeout(r, 350)); // let fonts/layout settle
+      win.focus(); win.print();
+      setTimeout(cleanup, 60000); // safety net if afterprint never fires
       setDownloaded(true);
       setTimeout(() => setDownloaded(false), 2000);
-    } catch { setError('Download failed — try Copy HTML instead.'); }
+    } catch { setError('Could not open the print dialog — try Copy HTML instead.'); }
     finally  { setBuilding(false); }
-  }, [buildDoc, brand.name]);
+  }, [buildDoc]);
 
   const handleCopy = useCallback(async (): Promise<void> => {
     try {

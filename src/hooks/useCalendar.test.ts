@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { buildCalendar } from './useCalendar.js';
 
-const base = { industry: 'Real Estate', products: 'CRM', goals: ['Sales'], tone: 'Bold' as const };
+const base = { industry: 'Real Estate', products: 'CRM', goals: ['Sales'], tone: 'Bold' as const, differentiation: '', monthlyFocus: '' };
 
 describe('buildCalendar', () => {
   it('produces exactly 30 sequential days', () => {
@@ -29,6 +29,19 @@ describe('buildCalendar', () => {
     const cal = buildCalendar('Facebook', base);
     expect(cal[0].dayName).toBe('Monday');
     expect(cal[7].dayName).toBe('Monday'); // day 8 wraps
+  });
+
+  it('weaves the monthly focus into some topics', () => {
+    const cal = buildCalendar('Instagram', { ...base, monthlyFocus: 'Ramadan offers' });
+    expect(cal.some(d => d.topic.includes('Ramadan offers'))).toBe(true);
+  });
+
+  it('is deterministic per brand+platform but varies across platforms', () => {
+    const a = buildCalendar('Instagram', base).map(d => d.topic);
+    const b = buildCalendar('Instagram', base).map(d => d.topic);
+    const c = buildCalendar('TikTok', base).map(d => d.topic);
+    expect(a).toEqual(b);          // stable for memo/tests
+    expect(a).not.toEqual(c);      // different platform → different plan
   });
 
   it('produces Arabic content + labels when lang="ar"', () => {

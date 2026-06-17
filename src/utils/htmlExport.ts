@@ -56,7 +56,8 @@ export const buildHTMLDocument = (brand: Brand, platformCalendars: PlatformCalen
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>${s(brand.name)} — ${C.titleSuffix}</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}body{font-family:'Segoe UI',sans-serif;background:#f8fafc;color:#1e293b}
+@page{margin:12mm}@media print{.wrap{padding:0}.plat{break-inside:avoid}}
 .wrap{max-width:1400px;margin:0 auto;padding:40px}.cover{background:linear-gradient(135deg,#1e1b4b,#4c1d95,#7c3aed);color:#fff;padding:60px;border-radius:20px;margin-bottom:40px;text-align:center}
 .cover h1{font-size:40px;font-weight:800}.section{background:#fff;border-radius:16px;padding:36px;margin-bottom:28px;box-shadow:0 4px 12px rgba(0,0,0,.08)}
 .plat{margin-bottom:36px;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}.plat-hdr{color:#fff;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}.plat-hdr h3{font-size:22px;font-weight:700}

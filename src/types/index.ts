@@ -17,12 +17,14 @@ export type Tone =
 
 // ── Core data shapes ─────────────────────────────────────────────────────────
 export interface Brand {
-  name:      string;
-  industry:  string;
-  goals:     string[];
-  tone:      Tone;
-  products:  string;
-  platforms: PlatformName[];
+  name:            string;
+  industry:        string;
+  goals:           string[];
+  tone:            Tone;
+  products:        string;
+  differentiation: string; // competitive edge — fed into generation
+  monthlyFocus:    string; // what to emphasize this month — fed into generation
+  platforms:       PlatformName[];
 }
 
 export interface ContentPillar {

@@ -31,6 +31,6 @@ export const DAYS:          string[]         = ['Monday','Tuesday','Wednesday','
 export const INITIAL_BRAND: Brand = {
   name: '', industry: '',
   goals: [], tone: 'Professional',
-  products: '',
+  products: '', differentiation: '', monthlyFocus: '',
   platforms: [...ALL_PLATFORMS],
 };

@@ -11,6 +11,13 @@ export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNe
   const [touched, setTouched] = useState<{ name?: boolean; industry?: boolean }>({});
   const touch = useCallback((k: 'name' | 'industry') => setTouched(t => ({ ...t, [k]: true })), []);
 
+  // "Other" industry → free-text. `pick` is the dropdown literal; a custom value
+  // (persisted from localStorage) maps back to the Other option.
+  const [pick, setPick] = useState<string>(() =>
+    brand.industry && !INDUSTRIES.includes(brand.industry) ? 'Other' : brand.industry,
+  );
+  const onIndustry = (v: string) => { setPick(v); updateBrand('industry', v === 'Other' ? '' : v); };
+
   const nameError     = !brand.name.trim() ? 'Brand name is required.'    : '';
   const industryError = !brand.industry    ? 'Please select an industry.' : '';
   const canProceed    = !nameError && !industryError;
@@ -26,9 +33,14 @@ export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNe
       <div className="grid md:grid-cols-2 gap-3">
         <FormField label={t('Brand Name *')} value={brand.name} onChange={v => updateBrand('name', v)} placeholder={t('Enter brand name')}
           error={t(touched.name ? nameError : '')} onBlur={() => touch('name')}/>
-        <FormSelect label={t('Industry *')} value={brand.industry} onChange={v => updateBrand('industry', v)}
+        <FormSelect label={t('Industry *')} value={pick} onChange={onIndustry}
           error={t(touched.industry ? industryError : '')} onBlur={() => touch('industry')}
           options={[{ value: '', label: t('Select industry') }, ...INDUSTRIES]}/>
+        {pick === 'Other' && (
+          <FormField label={t('Specify your industry *')} value={brand.industry} onChange={v => updateBrand('industry', v)}
+            placeholder={t('e.g. Pet care, Legal services')}
+            error={t(touched.industry ? industryError : '')} onBlur={() => touch('industry')}/>
+        )}
         <FormSelect label={t('Brand Tone')} value={brand.tone} onChange={v => updateBrand('tone', v)} options={TONES}/>
         <div>
           <label className="block text-brand-softer mb-1 text-xs">{t('Monthly Goals')}</label>
@@ -39,6 +51,8 @@ export default function BrandForm({ brand, updateBrand, toggleGoal, onNext, onNe
           </div>
         </div>
         <FormField label={t('Key Products / Services')} value={brand.products} onChange={v => updateBrand('products', v)} placeholder={t('Main offerings')} colSpan="md:col-span-2"/>
+        <FormField label={t('Key Differentiators')} value={brand.differentiation} onChange={v => updateBrand('differentiation', v)} placeholder={t('What makes you better than competitors')}/>
+        <FormField label={t("This Month's Focus")} value={brand.monthlyFocus} onChange={v => updateBrand('monthlyFocus', v)} placeholder={t('e.g. Ramadan offers, new launch')}/>
       </div>
       <div className="mt-4 flex justify-end">
         <button onClick={handleNext} onMouseEnter={onNextHover} aria-disabled={!canProceed}

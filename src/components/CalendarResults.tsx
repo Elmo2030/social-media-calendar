@@ -61,10 +61,10 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
               {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:copied?<Check size={16} aria-hidden="true"/>:<Copy size={16} aria-hidden="true"/>}
               {t(building?'Building…':copied?'Copied!':'Copy HTML')}
             </button>
-            <button onClick={onDownload} disabled={building} aria-label={t('Download')}
+            <button onClick={onDownload} disabled={building} aria-label={t('Save as PDF')}
               className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-surface-base px-4 py-2 rounded-lg text-sm flex items-center gap-2 font-semibold transition-colors">
               {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:downloaded?<Check size={16} aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
-              {t(building?'Building…':downloaded?'Downloaded!':'Download')}
+              {t(building?'Building…':downloaded?'Opened!':'Save as PDF')}
             </button>
           </div>
         </div>
@@ -76,7 +76,7 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
         <div className="bg-feedback-success/10 border border-feedback-success/30 rounded-lg p-4">
           <p className="text-feedback-success text-sm flex items-center gap-2">
             <FileText size={18} aria-hidden="true"/>
-            {t('Download saves a full HTML document. Open in any browser and print to PDF.')}
+            {t('Save as PDF opens your browser print dialog — choose "Save as PDF" as the destination.')}
           </p>
         </div>
       </div>
@@ -93,10 +93,10 @@ const CalendarResults = ({ brand, platformCalendars, copied, downloaded, buildin
           className="bg-surface-raised hover:bg-surface-hover text-white px-4 py-2 rounded-lg text-sm transition-colors">
           {t('New Calendar')}
         </button>
-        <button onClick={onDownload} disabled={building} aria-label={t('Download Premium Calendar')}
+        <button onClick={onDownload} disabled={building} aria-label={t('Save Calendar as PDF')}
           className="bg-feedback-success hover:bg-feedback-success/90 disabled:opacity-60 text-surface-base px-4 py-2 rounded-lg text-sm flex items-center gap-2 flex-1 justify-center font-semibold transition-colors">
           {building?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:downloaded?<Check size={16} aria-hidden="true"/>:<Download size={16} aria-hidden="true"/>}
-          {t(building?'Building HTML…':downloaded?'Downloaded!':'Download Premium Calendar')}
+          {t(building?'Building…':downloaded?'Opened!':'Save Calendar as PDF')}
         </button>
       </div>
     </div>
